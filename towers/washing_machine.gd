@@ -33,11 +33,11 @@ func update_cone_shape():
 	var point_origin = Vector2.ZERO
 	
 	# Top Corner: Go out to 'attack_range', then rotate up
-	var point_top = Vector2.RIGHT * (attack_range + 10)
+	var point_top = Vector2.RIGHT * attack_range
 	point_top = point_top.rotated(-angle_rad)
 	
 	# Bottom Corner: Go out to 'attack_range', then rotate down
-	var point_bottom = Vector2.RIGHT * (attack_range + 10)
+	var point_bottom = Vector2.RIGHT * attack_range
 	point_bottom = point_bottom.rotated(angle_rad)
 	
 	# Build the Array of points
