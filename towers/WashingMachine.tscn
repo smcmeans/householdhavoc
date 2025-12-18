@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://dqej3bqjpr3v3"]
+
+[ext_resource type="PackedScene" uid="uid://dyv051ckna75w" path="res://towers/BaseTower.tscn" id="1_vn6qs"]
+[ext_resource type="Script" uid="uid://beuek6d62rrlx" path="res://towers/washing_machine.gd" id="2_0j5l5"]
+[ext_resource type="Texture2D" uid="uid://df76ts8hrutj" path="res://assets/WashingMachine.png" id="3_0j5l5"]
+
+[node name="WashingMachine" instance=ExtResource("1_vn6qs")]
+script = ExtResource("2_0j5l5")
+cone_spread = 30.0
+attack_range = 100.0
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("3_0j5l5")
+
+[node name="TurretHead" type="Node2D" parent="." index="3"]
+
+[node name="WaterStream" type="Area2D" parent="TurretHead" index="0"]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="TurretHead/WaterStream" index="0"]
+polygon = PackedVector2Array(34, -10, 0, 0, 34, 14)
+
+[node name="StreamVisuals" type="Polygon2D" parent="TurretHead" index="1"]
+color = Color(0, 1, 1, 1)
+polygon = PackedVector2Array(0.45945948, -4.5957446, 15.621622, -9.702127, 15.621622, 2.5531917)
+
+[node name="CollisionShape2D" parent="ClickArea" index="0"]
+position = Vector2(0, 1)

@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://btbocrgrmpbf1"]
+
+[ext_resource type="Script" uid="uid://ccuhva58e4a6f" path="res://wave_manager.gd" id="1_ruc2e"]
+
+[node name="WaveManager" type="Node"]
+script = ExtResource("1_ruc2e")
+
+[node name="SpawnTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

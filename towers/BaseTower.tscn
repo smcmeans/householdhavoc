@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://dyv051ckna75w"]
+
+[ext_resource type="Script" uid="uid://tybpopfndxoc" path="res://towers/base_tower.gd" id="1_gt2hj"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_iqhfc"]
+radius = 34.234486
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gt2hj"]
+size = Vector2(32, 30)
+
+[node name="BaseTower" type="Node2D"]
+script = ExtResource("1_gt2hj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="DetectionRange" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionRange"]
+shape = SubResource("CircleShape2D_iqhfc")
+
+[node name="ReloadTimer" type="Timer" parent="."]
+
+[node name="ClickArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClickArea"]
+shape = SubResource("RectangleShape2D_gt2hj")
+
+[connection signal="area_entered" from="DetectionRange" to="." method="_on_detection_range_area_entered"]
+[connection signal="area_exited" from="DetectionRange" to="." method="_on_detection_range_area_exited"]
+[connection signal="mouse_entered" from="ClickArea" to="." method="_on_click_area_mouse_entered"]
+[connection signal="mouse_exited" from="ClickArea" to="." method="_on_click_area_mouse_exited"]
