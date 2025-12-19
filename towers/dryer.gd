@@ -51,10 +51,16 @@ func suck_enemies():
 		
 		# LOGIC: Enemy + DAMP + Not already trapped
 		if enemy is Enemy and enemy.has_status("damp") and not enemy.is_trapped:
-			
+			print(str(laundry_load.size()) + " / " + str(capacity) + " laundry slots used.")
 			enemy.is_trapped = true
 
 			var track_position = enemy.global_position
+
+			laundry_load.append({
+				"enemy": enemy,
+				"timer": -suck_speed,
+				"original_pos": track_position
+			})
 			
 			var tween = get_tree().create_tween()
 			tween.tween_property(enemy, "global_position", global_position, suck_speed)
@@ -65,11 +71,7 @@ func suck_enemies():
 
 			enemy.set_trapped(true)
 			
-			laundry_load.append({
-				"enemy": enemy,
-				"timer": 0.0,
-				"original_pos": track_position
-			})
+			
 
 			if laundry_load.size() >= capacity:
 				break
