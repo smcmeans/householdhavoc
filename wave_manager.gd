@@ -1,45 +1,79 @@
 extends Node
 
 # Link your Path2D here in the Inspector!
-@export var path_to_follow: Path2D
+@export var path_bedroom: Path2D
+@export var path_kitchen: Path2D
+
+var bedroom_enemies: Array
+var kitchen_enemies: Array
+
+var bedroom_finished: bool = false
+var kitchen_finished: bool = false
 
 signal enable_wave_button
+signal bedroom_portal_opened
+signal kitchen_portal_opened
+signal bedroom_portal_closed
+signal kitchen_portal_closed
 
 # Configure your catalog here
 # Format: "Name": { "scene": PreloadedScene, "cost": PointValue }
-var enemy_catalog = {
+var bedroom_enemy_catalog = {
 	"Sock": {
 		"scene": preload("res://enemies/Sock.tscn"),
 		"cost": 1
 	},
-	# If you don't have a Shirt yet, just use Sock but pretend it costs 5
-	"Shirt": {
-		"scene": preload("res://enemies/Shirt.tscn"), # Change to Shirt.tscn later!
+	"Pants": {
+		"scene": preload("res://enemies/Pants.tscn"),
 		"cost": 5
 	}
 }
 
-var current_wave: int = 0
-var enemies_to_spawn: Array = [] # A list (queue) of enemies waiting to enter
+var kitchen_enemy_catalog = {
+	"Spoon": {
+		"scene": preload("res://enemies/Spoon.tscn"),
+		"cost": 2
+	},
+	"Fork": {
+		"scene": preload("res://enemies/Fork.tscn"),
+		"cost": 6
+	},
+	"Apple": {
+		"scene": preload("res://enemies/Apple.tscn"),
+		"cost": 10
+	},
+	"Banana": {
+		"scene": preload("res://enemies/Banana.tscn"),
+		"cost": 15
+	},
+}
 
-@onready var spawn_timer = $SpawnTimer
+var current_wave: int = 0
+
+@onready var bedroom_timer = $BedroomTimer
+@onready var kitchen_timer = $KitchenTimer
 
 func start_next_wave():
 	current_wave += 1
 	print("--- Starting Wave ", current_wave, " ---")
+
+	emit_signal("bedroom_portal_opened")
+	emit_signal("kitchen_portal_opened")
 	
 	# 1. Calculate Budget (Formula: Wave 1 = 10, Wave 2 = 15, etc.)
 	var budget = 5 + (current_wave * 5)
 	print("Wave Budget: ", budget)
 	
 	# 2. Go Shopping
-	generate_wave_queue(budget)
+	bedroom_enemies = generate_wave_queue(budget, bedroom_enemy_catalog)
+	kitchen_enemies = generate_wave_queue(budget, kitchen_enemy_catalog)
 	
 	# 3. Start Spawning
-	spawn_timer.start()
+	bedroom_timer.start(0.5)
+	kitchen_timer.start(0.5)
 
-func generate_wave_queue(budget):
-	enemies_to_spawn.clear()
+func generate_wave_queue(budget: int, catalog: Dictionary) -> Array:
+	var enemies_to_spawn = []
 	
 	# Safety loop to prevent infinite freezing if math goes wrong
 	var sanity_check = 1000
@@ -49,8 +83,8 @@ func generate_wave_queue(budget):
 		
 		# 1. Filter: Find affordable enemies
 		var affordable_options = []
-		for key in enemy_catalog:
-			if enemy_catalog[key]["cost"] <= budget:
+		for key in catalog:
+			if catalog[key]["cost"] <= budget:
 				affordable_options.append(key)
 		
 		if affordable_options.size() == 0:
@@ -58,7 +92,7 @@ func generate_wave_queue(budget):
 
 		# 2. Pick an Enemy Type
 		var pick_name = affordable_options.pick_random()
-		var entry = enemy_catalog[pick_name]
+		var entry = catalog[pick_name]
 		var unit_cost = entry["cost"]
 		
 		# 3. DYNAMIC RUSH CHANCE
@@ -110,26 +144,52 @@ func generate_wave_queue(budget):
 			budget -= unit_cost
 			print("Queue: Added Single ", pick_name)
 			
-	# Trigger start
-	if enemies_to_spawn.size() > 0:
-		spawn_timer.start(1.0)
+	return enemies_to_spawn
 
-func _on_spawn_timer_timeout():
-	if enemies_to_spawn.size() == 0:
-		spawn_timer.stop()
+func _on_bedroom_timer_timeout():
+	if bedroom_enemies.size() == 0:
+		bedroom_timer.stop()
 		return
 
-	var enemy_data = enemies_to_spawn.pop_front()
+	var enemy_data = bedroom_enemies.pop_front()
 	
 	var new_enemy = enemy_data["scene"].instantiate()
-	path_to_follow.add_child(new_enemy)
+	path_bedroom.add_child(new_enemy)
 	
-	if enemies_to_spawn.size() > 0:
+	if bedroom_enemies.size() > 0:
 		# We still have enemies! Schedule the next one.
-		var next_delay = enemies_to_spawn[0]["delay"] # Peek at the next delay
-		spawn_timer.start(next_delay)
+		var next_delay = bedroom_enemies[0]["delay"] # Peek at the next delay
+		bedroom_timer.start(next_delay)
 	else:
 		# The list is now empty! We just spawned the last one.
 		print("Wave Spawning Finished! Last enemy spawned.")
 		emit_signal("enable_wave_button")
-		spawn_timer.stop()
+		bedroom_timer.stop()
+		bedroom_finished = true
+		emit_signal("bedroom_portal_closed")
+		check_all_finished()
+
+func _on_kitchen_timer_timeout():
+	if kitchen_enemies.size() == 0:
+		kitchen_timer.stop()
+		return
+	var enemy_data = kitchen_enemies.pop_front()
+	
+	var new_enemy = enemy_data["scene"].instantiate()
+	path_kitchen.add_child(new_enemy)
+	
+	if kitchen_enemies.size() > 0:
+		# We still have enemies! Schedule the next one.
+		var next_delay = kitchen_enemies[0]["delay"] # Peek at the next delay
+		kitchen_timer.start(next_delay)
+	else:
+		# The list is now empty! We just spawned the last one.
+		print("Wave Spawning Finished! Last enemy spawned.")
+		kitchen_timer.stop()
+		kitchen_finished = true
+		emit_signal("kitchen_portal_closed")
+		check_all_finished()
+
+func check_all_finished():
+	if bedroom_finished and kitchen_finished:
+		emit_signal("enable_wave_button")
