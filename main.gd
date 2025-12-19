@@ -26,7 +26,10 @@ func _process(delta):
 	# If we are holding a ghost, make it follow the mouse
 	if current_ghost_tower != null:
 		# Snap to mouse position
-		current_ghost_tower.global_position = get_global_mouse_position()
+		var snap_position = get_global_mouse_position()
+		snap_position.y += 16
+
+		current_ghost_tower.global_position = snap_position
 		
 		# Checking for "Left Click" to place it
 		if Input.is_action_just_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
