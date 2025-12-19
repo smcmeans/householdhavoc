@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://df76ts8hrutj"
-path="res://.godot/imported/WashingMachine.png-3b1b792cd4f93c642f184373f9420a3e.ctex"
+uid="uid://dapjy6t6hr0xr"
+path="res://.godot/imported/KitchenTile.png-891bbe4d125f34295cfbfd764f5a00ad.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/WashingMachine.png"
-dest_files=["res://.godot/imported/WashingMachine.png-3b1b792cd4f93c642f184373f9420a3e.ctex"]
+source_file="res://assets/tiles/KitchenTile.png"
+dest_files=["res://.godot/imported/KitchenTile.png-891bbe4d125f34295cfbfd764f5a00ad.ctex"]
 
 [params]
 

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dqe1c7wjimx3v"]
+[gd_scene load_steps=3 format=3 uid="uid://dqe1c7wjimx3v"]
 
 [ext_resource type="Script" uid="uid://b6a6k4ju1i5ve" path="res://build_menu.gd" id="1_0xsru"]
+[ext_resource type="Theme" uid="uid://du4qbm61utrmh" path="res://main_theme.tres" id="2_sbxe8"]
 
 [node name="BuildMenu" type="CanvasLayer"]
 script = ExtResource("1_0xsru")
@@ -27,4 +28,10 @@ columns = 3
 
 [node name="BtnWashingMachine" type="Button" parent="Background/GridContainer"]
 layout_mode = 2
+theme = ExtResource("2_sbxe8")
 text = "Washer ($100)"
+
+[node name="BtnDryer" type="Button" parent="Background/GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_sbxe8")
+text = "Dryer ($200)"

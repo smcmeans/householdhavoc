@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://du4qbm61utrmh"]
+
+[ext_resource type="FontFile" uid="uid://daee8tfwntoea" path="res://assets/fonts/Minecraft.otf" id="1_470mv"]
+
+[resource]
+Button/fonts/font = ExtResource("1_470mv")
+Label/fonts/font = ExtResource("1_470mv")

@@ -13,96 +13,149 @@ class_name Tower
 var current_target: Enemy = null
 var potential_targets: Array[Enemy] = []
 var is_ready_to_fire: bool = true
+var path_1_tier: int = 0
+var path_2_tier: int = 0
+var path_1_upgrades: Dictionary = {}
+var path_2_upgrades: Dictionary = {}
 
 # --- Nodes ---
 @onready var detection_shape = $DetectionRange/CollisionShape2D
 @onready var reload_timer = $ReloadTimer
 
 func _ready():
-    # 1. Apply range to the collision shape physically
-    var circle = CircleShape2D.new()
-    circle.radius = attack_range
-    detection_shape.shape = circle
-    
-    # 2. Setup Timer
-    reload_timer.wait_time = fire_rate
-    reload_timer.one_shot = true # We will restart it manually after firing
-    
-    # 3. Connect Signals
-    # Note: We connect these to the PARENT script functions defined below
+	# 1. Apply range to the collision shape physically
+	var circle = CircleShape2D.new()
+	circle.radius = attack_range
+	detection_shape.shape = circle
+	
+	# 2. Setup Timer
+	reload_timer.wait_time = fire_rate
+	reload_timer.one_shot = true # We will restart it manually after firing
+	
+	# 3. Connect Signals
+	# Note: We connect these to the PARENT script functions defined below
 
 func _physics_process(delta):
-    update_target()
-    
-    # If we have a target and the gun is loaded... FIRE!
-    if current_target != null and is_ready_to_fire and is_turret_aimed():
-        fire()
-        start_reload()
+	update_target()
+	
+	# If we have a target and the gun is loaded... FIRE!
+	if current_target != null and is_ready_to_fire and is_turret_aimed():
+		fire()
+		start_reload()
 
 # --- Logic ---
 
 func update_target():
-    # If our current target died or escaped, forget them
-    if not is_instance_valid(current_target):
-        current_target = null
-    
-    # If we have no target, pick the first one in our list
-    if current_target == null and potential_targets.size() > 0:
-        current_target = potential_targets[0]
-        # (Later, you can add logic here to pick "Strongest" or "Closest to Exit")
+	# If our current target died or escaped, forget them
+	if is_instance_valid(current_target):
+		if not current_target.targetable:
+			current_target = null
+	else:
+		current_target = null
+
+	# If we have no target, try to find one from potential targets
+	if current_target == null and potential_targets.size() > 0:
+		for enemy in potential_targets:
+			if enemy.targetable:
+				current_target = enemy
+				break
 
 func start_reload():
-    is_ready_to_fire = false
-    reload_timer.start()
-    await reload_timer.timeout # Wait for the timer to finish
-    is_ready_to_fire = true
+	is_ready_to_fire = false
+	reload_timer.start()
+	await reload_timer.timeout # Wait for the timer to finish
+	is_ready_to_fire = true
 
 # --- VIRTUAL FUNCTION (To be overridden) ---
 # This function does nothing here. The Washing Machine will "overwrite" this.
 func fire():
-    pass 
+	pass 
 
 # --- Signal Handling ---
 func _on_detection_range_area_entered(area):
-    # The 'area' is the Hitbox. The Enemy script is on the Hitbox's parent.
-    var enemy = area.get_parent()
-    
-    # Check if the parent is actually an Enemy (using the class_name we set up)
-    if enemy is Enemy:
-        potential_targets.append(enemy)
-        print("Target Acquired: ", enemy.name)
+	# The 'area' is the Hitbox. The Enemy script is on the Hitbox's parent.
+	var enemy = area.get_parent()
+	
+	# Check if the parent is actually an Enemy (using the class_name we set up)
+	if enemy is Enemy:
+		potential_targets.append(enemy)
+		print("Target Acquired: ", enemy.name)
 
 func _on_detection_range_area_exited(area):
-    var enemy = area.get_parent()
-    
-    if enemy in potential_targets:
-        potential_targets.erase(enemy)
-        if enemy == current_target:
-            current_target = null
+	var enemy = area.get_parent()
+	
+	if enemy in potential_targets:
+		potential_targets.erase(enemy)
+		if enemy == current_target:
+			current_target = null
 
 # VIRTUAL FUNCTION: Child classes can override this to require aiming
 func is_turret_aimed():
-    return true
+	return true
 
 func _draw():
-    # Only draw if we are hovering, placing, or debugging
-    if show_range_setup:
-        # Draw a filled circle (transparent color)
-        # Color(Red, Green, Blue, Alpha/Transparency)
-        draw_circle(Vector2.ZERO, attack_range, Color(0, 0, 0, 0.3))
-        
-        # Optional: Draw a border outline for better visibility
-        draw_arc(Vector2.ZERO, attack_range, 0, TAU, 32, Color.WHITE, 2.0)
+	# Only draw if we are hovering, placing, or debugging
+	if show_range_setup:
+		# Draw a filled circle (transparent color)
+		draw_circle(Vector2.ZERO, attack_range, Color(0, 0, 0, 0.3))
+		
+		# Draw a border outline for better visibility
+		draw_arc(Vector2.ZERO, attack_range, 0, TAU, 32, Color.WHITE, 2.0)
 
 # Function to toggle this on/off from other scripts
 func set_range_visible(is_visible: bool):
-    show_range_setup = is_visible
-    queue_redraw() # Tells Godot "The visuals changed, run _draw() again!"
+	show_range_setup = is_visible
+	queue_redraw() # Tells Godot "The visuals changed, run _draw() again!"
 
 func _on_click_area_mouse_entered():
-    # Show range when mouse is over the tower
-    set_range_visible(true)
+	# Show range when mouse is over the tower
+	set_range_visible(true)
 
 func _on_click_area_mouse_exited():
-    # Hide range when mouse leaves
-    set_range_visible(false)
+	# Hide range when mouse leaves
+	set_range_visible(false)
+
+func apply_upgrade(path_id: int):
+	# Determine which path we are upgrading
+	var current_tier = path_1_tier if path_id == 1 else path_2_tier
+	var upgrade_list = path_1_upgrades if path_id == 1 else path_2_upgrades
+	
+	var next_tier = current_tier + 1
+	
+	# 1. Validation Checks
+	if not upgrade_list.has(next_tier):
+		print("Path " + str(path_id) + " is maxed out!")
+		return
+
+	# Optional: Add BTD Logic (e.g., You can't have Tier 3 in both paths)
+	if path_id == 1 and next_tier > 2 and path_2_tier > 2:
+		print("Locked! One path is already Tier 3.")
+		return
+	if path_id == 2 and next_tier > 2 and path_1_tier > 2:
+		print("Locked! One path is already Tier 3.")
+		return
+
+	var data = upgrade_list[next_tier]
+
+	# 2. Check Money
+	if GameData.money >= data["cost"]:
+		GameData.remove_money(data["cost"])
+		
+		# 3. Update the Tier Counter
+		if path_id == 1:
+			path_1_tier = next_tier
+		else:
+			path_2_tier = next_tier
+			
+		# 4. CALL THE SPECIFIC TOWER LOGIC
+		# This function will live in "Dryer.gd" or "Washer.gd" to apply the specific stats
+		_update_stats(path_id, next_tier)
+		
+		print("Upgraded Path " + str(path_id) + " to Tier " + str(next_tier))
+		
+	else:
+		print("Not enough cash!")
+
+# Placeholder function that children scripts (Dryer/Washer) will overwrite
+func _update_stats(path_id, tier):
+	pass

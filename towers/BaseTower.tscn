@@ -25,6 +25,7 @@ shape = SubResource("CircleShape2D_iqhfc")
 [node name="ClickArea" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClickArea"]
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_gt2hj")
 
 [connection signal="area_entered" from="DetectionRange" to="." method="_on_detection_range_area_entered"]

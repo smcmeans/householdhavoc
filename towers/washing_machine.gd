@@ -16,8 +16,7 @@ func _ready():
 	
 	update_cone_shape()
 		
-	# CRITICAL: We need to know when they enter/exit the STREAM specifically
-	# (Make sure these signals are connected via code or editor!)
+	# We need to know when they enter/exit the STREAM specifically
 	if not water_stream_area.area_entered.is_connected(_on_stream_area_entered):
 		water_stream_area.area_entered.connect(_on_stream_area_entered)
 	if not water_stream_area.area_exited.is_connected(_on_stream_area_exited):
@@ -126,5 +125,5 @@ func _on_stream_area_exited(area):
 # Helper function to keep code clean
 func hit_enemy(enemy):
 	enemy.take_damage(damage)
-	enemy.apply_status("damp", 5.0)
+	enemy.apply_status("damp", 5.0) 
 	print("Washed ", enemy.name)
