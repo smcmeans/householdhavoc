@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://3sbw0oq3lfy8"]
+[gd_scene load_steps=8 format=3 uid="uid://3sbw0oq3lfy8"]
 
 [ext_resource type="Script" uid="uid://deh1s8pwodl0a" path="res://player.gd" id="1_xhfnw"]
 [ext_resource type="Texture2D" uid="uid://cdfpvsgvhxrhj" path="res://assets/sprites/Character.png" id="2_kpjcp"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_uu6xs"]
+radius = 8.246211
 
 [sub_resource type="Animation" id="Animation_e80uo"]
 length = 0.001
@@ -43,11 +44,16 @@ _data = {
 &"walk": SubResource("Animation_kne1u")
 }
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kpjcp"]
+size = Vector2(32, 18)
+
 [node name="Player" type="CharacterBody2D"]
+y_sort_enabled = true
 script = ExtResource("1_xhfnw")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("2_kpjcp")
+offset = Vector2(0, -14)
 hframes = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -61,3 +67,15 @@ rotation_smoothing_speed = 0.2
 libraries = {
 &"": SubResource("AnimationLibrary_cxr5p")
 }
+
+[node name="AtackPivot" type="Node2D" parent="."]
+position = Vector2(0, -8)
+
+[node name="AttackArea" type="Area2D" parent="AtackPivot"]
+collision_layer = 0
+collision_mask = 4
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AtackPivot/AttackArea"]
+position = Vector2(8, 0.6875)
+shape = SubResource("RectangleShape2D_kpjcp")
