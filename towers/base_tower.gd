@@ -17,6 +17,7 @@ var path_1_tier: int = 0
 var path_2_tier: int = 0
 var path_1_upgrades: Dictionary = {}
 var path_2_upgrades: Dictionary = {}
+var is_selected: bool = false
 
 # --- Nodes ---
 @onready var detection_shape = $DetectionRange/CollisionShape2D
@@ -109,11 +110,13 @@ func set_range_visible(is_visible: bool):
 
 func _on_click_area_mouse_entered():
 	# Show range when mouse is over the tower
-	set_range_visible(true)
+	if not is_selected:
+		set_range_visible(true)
 
 func _on_click_area_mouse_exited():
 	# Hide range when mouse leaves
-	set_range_visible(false)
+	if not is_selected:
+		set_range_visible(false)
 
 func apply_upgrade(path_id: int):
 	# Determine which path we are upgrading
@@ -169,6 +172,7 @@ func _on_click_area_input_event(viewport: Node, event: InputEvent, shape_idx: in
 		print(str(event.pressed) + " " + str(event.button_index))
 
 func select_tower():
+	is_selected = true
 	# Show the Range
 	set_range_visible(true)
 	
@@ -179,4 +183,5 @@ func select_tower():
 
 # sCreate a function to "Deselect" (Called later by the UI)
 func deselect_tower():
+	is_selected = false
 	set_range_visible(false)

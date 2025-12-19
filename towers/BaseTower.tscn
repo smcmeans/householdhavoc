@@ -9,11 +9,14 @@ radius = 34.234486
 size = Vector2(32, 30)
 
 [node name="BaseTower" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_gt2hj")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
+offset = Vector2(-3, -18)
 
 [node name="DetectionRange" type="Area2D" parent="."]
+position = Vector2(-3, -19)
 collision_layer = 0
 collision_mask = 4
 
@@ -23,6 +26,7 @@ shape = SubResource("CircleShape2D_iqhfc")
 [node name="ReloadTimer" type="Timer" parent="."]
 
 [node name="ClickArea" type="Area2D" parent="."]
+position = Vector2(-3, -19)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ClickArea"]
 position = Vector2(0, 1)
