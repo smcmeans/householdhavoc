@@ -119,11 +119,13 @@ func apply_status(effect_name: String, duration: float):
 
 	if effect_name == "damp":
 		if has_status("burning"):
-			remove_status("burning")
 			apply_status_helper("dry", 5.0)
 			# TODO: Add steam blast
+			take_damage(int(active_statuses["burning"]))
+			remove_status("burning")
 			return
 		if has_status("dry"):
+			reduce_status_duration("damp", 1.0)
 			return
 	
 	apply_status_helper(effect_name, duration)
@@ -170,7 +172,9 @@ func update_status_visuals():
 func visibility(able_to_be_seen: bool):
 	if has_node("Sprite2D"):
 		sprite.visible = able_to_be_seen
-	if has_node("ProgressBar"):
+	if has_node("TextureProgressBar"):
 		health_bar.visible = able_to_be_seen
+	if has_node("DropShadow"):
+		$DropShadow.visible = able_to_be_seen
 
 	targetable = able_to_be_seen
