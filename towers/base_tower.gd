@@ -159,3 +159,24 @@ func apply_upgrade(path_id: int):
 # Placeholder function that children scripts (Dryer/Washer) will overwrite
 func _update_stats(path_id, tier):
 	pass
+
+
+func _on_click_area_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	# TODO: Connect this to select keybind
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+		select_tower()
+	elif event is InputEventMouseButton:
+		print(str(event.pressed) + " " + str(event.button_index))
+
+func select_tower():
+	# Show the Range
+	set_range_visible(true)
+	
+	# Open the Upgrade Menu
+	var upgrade_menu = get_tree().root.get_node("Main/UI/UpgradeMenu")
+	if upgrade_menu:
+		upgrade_menu.open_menu(self)
+
+# sCreate a function to "Deselect" (Called later by the UI)
+func deselect_tower():
+	set_range_visible(false)

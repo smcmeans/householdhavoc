@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://6xq727awhp1m"]
+[gd_scene load_steps=10 format=3 uid="uid://6xq727awhp1m"]
 
 [ext_resource type="Script" uid="uid://c0tjj4guavhdb" path="res://main.gd" id="1_fos0i"]
 [ext_resource type="PackedScene" uid="uid://3sbw0oq3lfy8" path="res://Player.tscn" id="2_fos0i"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://chkia8ubld1ke" path="res://start_wave_button.gd" id="4_fos0i"]
 [ext_resource type="PackedScene" uid="uid://btbocrgrmpbf1" path="res://WaveManager.tscn" id="5_fos0i"]
 [ext_resource type="Script" uid="uid://g1hckvebsone" path="res://money_label.gd" id="6_lgr22"]
+[ext_resource type="PackedScene" uid="uid://bk305k0bu0i1c" path="res://UpgradeMenu.tscn" id="7_trn2v"]
 
 [sub_resource type="Curve2D" id="Curve2D_r0du0"]
 _data = {
@@ -47,6 +48,8 @@ offset_bottom = 23.0
 grow_horizontal = 0
 theme = ExtResource("4_3dxm6")
 script = ExtResource("6_lgr22")
+
+[node name="UpgradeMenu" parent="UI" instance=ExtResource("7_trn2v")]
 
 [node name="WaveManager" parent="." node_paths=PackedStringArray("path_to_follow") instance=ExtResource("5_fos0i")]
 path_to_follow = NodePath("../Path2D")

@@ -5,7 +5,7 @@ class_name Enemy
 @export var max_health: int = 5
 @export var money_reward: int = 5
 
-@onready var health_bar = $ProgressBar
+@onready var health_bar = $TextureProgressBar
 
 @onready var sprite = $Sprite2D
 var default_color = Color(1, 1, 1, 1)
@@ -80,6 +80,9 @@ func set_trapped(trapped: bool):
 	visibility(not trapped)
 
 func take_damage(amount: int):
+	if amount <= 0:
+		return
+
 	current_health -= amount
 	
 	# UPDATE THE BAR
