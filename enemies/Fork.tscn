@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dqpqiy3ti1ffk"]
+
+[ext_resource type="PackedScene" uid="uid://b6wq4q6eku185" path="res://enemies/BaseEnemy.tscn" id="1_43as6"]
+
+[node name="Fork" instance=ExtResource("1_43as6")]
+
+[node name="ColorRect" type="ColorRect" parent="Sprite2D" index="0"]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.45452422, 0.45452428, 0.45452422, 1)

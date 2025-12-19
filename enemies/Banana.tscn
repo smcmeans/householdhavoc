@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmwjjomn7ue8q"]
+
+[ext_resource type="PackedScene" uid="uid://b6wq4q6eku185" path="res://enemies/BaseEnemy.tscn" id="1_yb3lv"]
+
+[node name="Banana" instance=ExtResource("1_yb3lv")]
+
+[node name="ColorRect" type="ColorRect" parent="Sprite2D" index="0"]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(1, 1, 0, 1)

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://node86y1ajq"]
+
+[ext_resource type="PackedScene" uid="uid://b6wq4q6eku185" path="res://enemies/BaseEnemy.tscn" id="1_ynhpy"]
+
+[node name="Apple" instance=ExtResource("1_ynhpy")]
+
+[node name="ColorRect" type="ColorRect" parent="Sprite2D" index="0"]
+offset_right = 40.0
+offset_bottom = 40.0
+color = Color(0.84313726, 0, 0, 1)
