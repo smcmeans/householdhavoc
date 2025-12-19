@@ -50,9 +50,6 @@ rotation = 0.006709602
 texture = ExtResource("2_fqe57")
 hframes = 4
 
-[node name="ProgressBar" parent="." index="2"]
-visible = false
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
 libraries = {
 &"": SubResource("AnimationLibrary_lqbhe")
