@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=3 uid="uid://dfcmqf2yfaypb"]
+
+[ext_resource type="PackedScene" uid="uid://b6wq4q6eku185" path="res://enemies/BaseEnemy.tscn" id="1_1hrhb"]
+[ext_resource type="Script" uid="uid://m5ps6prx76wn" path="res://enemies/pants.gd" id="2_rbx6p"]
+[ext_resource type="Texture2D" uid="uid://3yu7tjb3fxc7" path="res://assets/sprites/Pants.png" id="3_5lfkn"]
+
+[sub_resource type="Animation" id="Animation_6yy8g"]
+resource_name = "walk"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_b1iad"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_caav3"]
+_data = {
+&"RESET": SubResource("Animation_b1iad"),
+&"walk": SubResource("Animation_6yy8g")
+}
+
+[node name="Pants" instance=ExtResource("1_1hrhb")]
+script = ExtResource("2_rbx6p")
+move_speed = 100.0
+max_health = 10
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("3_5lfkn")
+offset = Vector2(0, -16)
+hframes = 4
+
+[node name="DropShadow" parent="." index="3"]
+scale = Vector2(1.2, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
+root_node = NodePath("../Sprite2D")
+libraries = {
+&"": SubResource("AnimationLibrary_caav3")
+}
