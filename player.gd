@@ -7,15 +7,25 @@ extends CharacterBody2D
 @onready var anim_player = $AnimationPlayer
 @onready var sprite = $Sprite2D
 
+@onready var slash_sprite = $AtackPivot/SlashSprite
+
 var can_attack: bool = true
 
+func _ready():
+	slash_sprite.visible = false
+
 func _physics_process(delta):
+	
+	if anim_player.current_animation == "attack":
+		
+		return
+
 	# Get input direction (WASD or Arrows)
 	var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
-	
 	$AtackPivot.look_at(get_global_mouse_position())
 	if Input.is_action_just_pressed("ui_attack") and can_attack:
 		perform_slash_attack()
+		return
 
 	if direction:
 		velocity = direction * speed
@@ -36,17 +46,14 @@ func _physics_process(delta):
 		
 		# 4. STOP ANIMATION (When standing still)
 		# "RESET" is the default pose Godot creates automatically
-		if anim_player.current_animation != "RESET":
+		if anim_player.current_animation != "RESET" && anim_player.current_animation != "attack":
 			anim_player.play("RESET")
 
 	move_and_slide()
 
 func perform_slash_attack():
-	can_attack = false
 	
-	# Play animation or show sprite
-	# $AnimationPlayer.play("slash") 
-	print("Slash!") 
+	can_attack = false
 	
 	# Get everyone in range
 	var targets = $AtackPivot/AttackArea.get_overlapping_areas()
@@ -62,6 +69,13 @@ func perform_slash_attack():
 			enemy.take_damage(attack_damage)
 			 # Optional: Add knockback here!
 	
+	# Play animation
+	slash_sprite.visible = true
+	$AnimationPlayer.play("attack")
+	await $AnimationPlayer.animation_finished
+	slash_sprite.visible = false
+	$AnimationPlayer.play("RESET")
+
 	# COOLDOWN: Wait before attacking again
 	await get_tree().create_timer(attack_cooldown).timeout
 	can_attack = true
