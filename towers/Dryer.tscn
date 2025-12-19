@@ -8,12 +8,10 @@
 script = ExtResource("2_o5gef")
 capacity = 3
 suck_speed = 0.5
-throw_distance = 50.0
+throw_distance = 100.0
+burn_duration = 5.0
 attack_range = 100.0
 fire_rate = 2.0
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("3_6jowl")
-
-[node name="CollisionShape2D" parent="ClickArea" index="0"]
-position = Vector2(0, 1)

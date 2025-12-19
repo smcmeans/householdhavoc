@@ -13,6 +13,7 @@ attack_range = 100.0
 texture = ExtResource("3_0j5l5")
 
 [node name="TurretHead" type="Node2D" parent="." index="3"]
+position = Vector2(0, -16)
 
 [node name="WaterStream" type="Area2D" parent="TurretHead" index="0"]
 collision_layer = 0
@@ -24,6 +25,3 @@ polygon = PackedVector2Array(34, -10, 0, 0, 34, 14)
 [node name="StreamVisuals" type="Polygon2D" parent="TurretHead" index="1"]
 color = Color(0, 1, 1, 1)
 polygon = PackedVector2Array(0.45945948, -4.5957446, 15.621622, -9.702127, 15.621622, 2.5531917)
-
-[node name="CollisionShape2D" parent="ClickArea" index="0"]
-position = Vector2(0, 1)
