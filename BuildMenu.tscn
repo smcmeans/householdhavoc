@@ -34,3 +34,8 @@ text = "Dryer ($200)"
 layout_mode = 2
 theme = ExtResource("2_sbxe8")
 text = "Closet ($100)"
+
+[node name="BtnSink" type="Button" parent="GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_sbxe8")
+text = "Sink ($150)"

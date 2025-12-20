@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bs3ny4rn4yppk"]
+
+[ext_resource type="PackedScene" uid="uid://ca2tdvknw63gk" path="res://towers/projectiles/BaseProjectile.tscn" id="1_xj2xu"]
+[ext_resource type="Script" uid="uid://bf0lu64edcn0u" path="res://towers/projectiles/sink_projectile.gd" id="2_e5f3o"]
+
+[node name="BaseProjectile" instance=ExtResource("1_xj2xu")]
+script = ExtResource("2_e5f3o")
+damp_duration = 5
+lifetime = 1.5
+
+[node name="ColorRect" type="ColorRect" parent="Sprite2D" index="0"]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0
+color = Color(0, 0.050980393, 1, 1)

@@ -7,6 +7,7 @@ signal request_tower_placement(tower_scene, cost)
 var washing_machine_scene = preload("res://towers/WashingMachine.tscn")
 var dryer_scene = preload("res://towers/Dryer.tscn")
 var closet_scene = preload("res://towers/Closet.tscn")
+var sink_scene = preload("res://towers/Sink.tscn")
 
 func _ready():
 	# Hide the menu when the game starts
@@ -17,6 +18,7 @@ func _ready():
 	$GridContainer/BtnWashingMachine.pressed.connect(_on_washer_clicked)
 	$GridContainer/BtnDryer.pressed.connect(_on_dryer_clicked)
 	$GridContainer/BtnCloset.pressed.connect(_on_closet_clicked)
+	$GridContainer/BtnSink.pressed.connect(_on_sink_clicked)
 
 func _input(event):
 	if event.is_action_pressed("toggle_build_menu"):
@@ -53,9 +55,19 @@ func _on_dryer_clicked():
 func _on_closet_clicked():
 	var cost = 100
 	if GameData.money < cost:
-		print("Not enough money to build Dryer!")
+		print("Not enough money to build Closet!")
 		return
 
 	toggle_menu()
 
 	emit_signal("request_tower_placement", closet_scene, cost)
+
+func _on_sink_clicked():
+	var cost = 150
+	if GameData.money < cost:
+		print("Not enough money to build Dryer!")
+		return
+	
+	toggle_menu()
+
+	emit_signal("request_tower_placement", sink_scene, cost)
