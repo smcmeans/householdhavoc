@@ -75,6 +75,8 @@ func update_speed_mult() -> void:
 		speed_mult = 0
 	if has_status("burning"):
 		speed_mult *= 1.2
+	if has_status("hanger_trapped"):
+		speed_mult = 0
 	# Adjust animation speed
 	anim_player.speed_scale = (move_speed / 150.0) * speed_mult
 
@@ -155,6 +157,9 @@ func apply_status(effect_name: String, duration: float):
 			reduce_status_duration("damp", 1.0)
 			return
 	
+	if effect_name == "hanger_trapped" and not category == "clothes":
+		return
+
 	apply_status_helper(effect_name, duration)
 
 func apply_status_helper(effect_name: String, duration: float):
@@ -208,3 +213,8 @@ func visibility(able_to_be_seen: bool):
 		$DropShadow.visible = able_to_be_seen
 
 	targetable = able_to_be_seen
+
+func get_current_velocity() -> Vector2:
+    # Get the direction the sprite is facing (assuming it faces forward on the path)
+	var direction_vector = Vector2.RIGHT.rotated(rotation)
+	return direction_vector * move_speed * speed_mult
