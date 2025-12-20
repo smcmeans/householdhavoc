@@ -6,6 +6,8 @@ signal money_changed(new_amount)
 # Starting Cash
 var money: int = 500
 
+var current_round: int = 0
+
 func add_money(amount: int):
     money += amount
     emit_signal("money_changed", money)

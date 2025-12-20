@@ -8,10 +8,12 @@ func _ready():
 	wave_manager.enable_wave_button.connect(_on_wave_ended)
 
 func _pressed():
+	
+	GameData.current_round += 1
+	$"../RoundLabel".update_round()
 	# Find the WaveManager and tell it to go
-	# (Adjust the path if your WaveManager is somewhere else)
 	$"../../WaveManager".start_next_wave() 
-	# Disable button so we don't spam it?
+	# Disable button so we don't spam it
 	disabled = true
 
 func _on_wave_ended():

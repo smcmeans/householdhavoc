@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=4 uid="uid://6xq727awhp1m"]
+[gd_scene load_steps=26 format=4 uid="uid://6xq727awhp1m"]
 
 [ext_resource type="Script" uid="uid://c0tjj4guavhdb" path="res://main.gd" id="1_fos0i"]
 [ext_resource type="PackedScene" uid="uid://3sbw0oq3lfy8" path="res://Player.tscn" id="2_fos0i"]
@@ -12,6 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://bk305k0bu0i1c" path="res://UpgradeMenu.tscn" id="7_trn2v"]
 [ext_resource type="Texture2D" uid="uid://btw86cmxyxtik" path="res://assets/tiles/BrickTile.png" id="9_5vvyt"]
 [ext_resource type="Texture2D" uid="uid://dapjy6t6hr0xr" path="res://assets/tiles/KitchenTile.png" id="10_c6i3y"]
+[ext_resource type="Script" uid="uid://clrre73dw3l2n" path="res://round_label.gd" id="10_j4qnp"]
 [ext_resource type="Texture2D" uid="uid://dt4ksulho7had" path="res://assets/tiles/StoneTile.png" id="11_c2ibq"]
 [ext_resource type="Texture2D" uid="uid://bah63n24vqr4f" path="res://assets/tiles/WoodFloor.png" id="12_j4qnp"]
 
@@ -158,6 +159,17 @@ offset_bottom = 23.0
 grow_horizontal = 0
 theme = ExtResource("4_3dxm6")
 script = ExtResource("6_lgr22")
+
+[node name="RoundLabel" type="Label" parent="UI"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+theme = ExtResource("4_3dxm6")
+script = ExtResource("10_j4qnp")
 
 [node name="UpgradeMenu" parent="UI" instance=ExtResource("7_trn2v")]
 
