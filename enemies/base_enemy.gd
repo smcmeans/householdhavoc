@@ -8,12 +8,18 @@ class_name Enemy
 @onready var health_bar = $TextureProgressBar
 
 @onready var sprite = $Sprite2D
+@onready var anim_player = $AnimationPlayer
 var default_color = Color(1, 1, 1, 1)
 var is_trapped: bool = false
 var targetable: bool = true
+
+var category: String = ""
  
 var current_health: int
+var last_position
 var active_statuses: Dictionary = {}
+
+var speed_mult = 1
 
 # Stores how much time has passed since the last burn tick
 # Format: { "burning": 0.5, "poison": 0.2 }
@@ -30,26 +36,47 @@ func _ready():
 	
 	loop = false 
 
+	last_position = global_position
+
+	anim_player.speed_scale = move_speed / 150.0
+
+	
+
+func _process(delta: float) -> void:
+	if is_trapped:
+		# TODO: Add shivering animation or effect
+		return
+	else:
+		if anim_player.current_animation != "walk":
+			anim_player.play("walk")
+	
+	# Flip sprite based on movement direction
+	var movement_vector = global_position - last_position
+	if abs(movement_vector.x) >= 0.1:
+		sprite.flip_h = movement_vector.x < 0
+	last_position = global_position
+
 func _physics_process(delta):
 	# Do not move if trapped
 	if (is_trapped):
 		return
 
-	progress += move_speed * delta * status_speed_effect()
+	progress += move_speed * delta * speed_mult
 	take_damage(status_damage_over_time(delta))
 	if progress_ratio >= 1.0:
 		escape_house()
 	handle_statuses(delta)
 
-func status_speed_effect():
-	var speed_mult = 1
+func update_speed_mult() -> void:
+	speed_mult = 1
 	if has_status("damp"):
 		speed_mult *= 0.8
 	if has_status("frozen"):
 		speed_mult = 0
 	if has_status("burning"):
 		speed_mult *= 1.2
-	return speed_mult
+	# Adjust animation speed
+	anim_player.speed_scale = (move_speed / 150.0) * speed_mult
 
 func status_damage_over_time(delta):
 	var damage_to_deal = 0
@@ -136,6 +163,8 @@ func apply_status_helper(effect_name: String, duration: float):
 	
 	# Update visuals immediately
 	update_status_visuals()
+	# Update speed multiplier
+	update_speed_mult()
 	print(name + " applied status: " + effect_name)
 
 func remove_status(effect_name: String):
@@ -143,6 +172,7 @@ func remove_status(effect_name: String):
 		active_statuses.erase(effect_name)
 		update_status_visuals()
 		print(name + " removed status: " + effect_name)
+	update_speed_mult()
 
 # Helper for Towers to check
 func has_status(effect_name: String) -> bool:

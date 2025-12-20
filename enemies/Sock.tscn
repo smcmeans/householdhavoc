@@ -1,46 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://bg5pmjjs2vdyw"]
+[gd_scene load_steps=4 format=3 uid="uid://bg5pmjjs2vdyw"]
 
 [ext_resource type="PackedScene" uid="uid://b6wq4q6eku185" path="res://enemies/BaseEnemy.tscn" id="1_cvvrd"]
 [ext_resource type="Texture2D" uid="uid://3aa8fuhuey4a" path="res://assets/sprites/Sock.png" id="2_fqe57"]
 [ext_resource type="Script" uid="uid://caoy6l8vx8ipr" path="res://enemies/sock.gd" id="2_tu5ww"]
-
-[sub_resource type="Animation" id="Animation_fqe57"]
-resource_name = "walk"
-length = 0.4
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
-}
-
-[sub_resource type="Animation" id="Animation_tu5ww"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_lqbhe"]
-_data = {
-&"RESET": SubResource("Animation_tu5ww"),
-&"walk": SubResource("Animation_fqe57")
-}
 
 [node name="Sock" instance=ExtResource("1_cvvrd")]
 script = ExtResource("2_tu5ww")
@@ -48,9 +10,3 @@ script = ExtResource("2_tu5ww")
 [node name="Sprite2D" parent="." index="0"]
 rotation = 0.006709602
 texture = ExtResource("2_fqe57")
-hframes = 4
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
-libraries = {
-&"": SubResource("AnimationLibrary_lqbhe")
-}

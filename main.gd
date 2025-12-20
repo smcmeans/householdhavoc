@@ -4,7 +4,7 @@ var current_ghost_tower: Node2D = null
 var current_tower_cost: int = 0
 
 var occupied_tiles = {}
-var tower_footprint = [Vector2i(1,0), Vector2i(2,0), Vector2i(1,1), Vector2i(2,1)]
+var tower_footprint = [Vector2i(0,0), Vector2i(-1,0), Vector2i(0,-1), Vector2i(-1,-1)]
 
 # Link the signal from the menu
 func _ready():
@@ -38,21 +38,24 @@ func _process(delta):
 	if current_ghost_tower != null:
 
 		var mouse_pos = get_global_mouse_position()
-		mouse_pos.y += 13 # Adjust for tile offset
-		mouse_pos.x += 3  # Adjust for tile offset
+		# mouse_pos.y += 13 # Adjust for tile offset
+		# mouse_pos.x += 3  # Adjust for tile offset
 
 		# Snap to mouse position
 		var tile_pos = $FloorLayer.local_to_map(mouse_pos)
 		
 		# Get the pixel center of that tile (e.g., Vector2(176, 112))
 		var snap_position = $FloorLayer.map_to_local(tile_pos)
+		snap_position.x -= 8
+		snap_position.y += 8
+		# var snap_position = tile_pos
 
 		current_ghost_tower.global_position = snap_position
 
 		if not can_place_tower_at(tile_pos):
 			current_ghost_tower.modulate = Color(1, 0, 0, 0.5) # Red tint
 		else:
-			current_ghost_tower.modulate = Color(1, 1, 1, 1) # Normal
+			current_ghost_tower.modulate = Color(1, 1, 1, 0.5) # Normal
 			
 		# Checking for "Left Click" to place it
 		if (Input.is_action_just_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and can_place_tower_at(tile_pos):
@@ -82,6 +85,7 @@ func can_place_tower_at(anchor_grid_pos: Vector2i) -> bool:
 	# 2. Check EVERY tile in the footprint
 	for offset in tower_footprint:
 		var check_pos = anchor_grid_pos + offset
+		print("Checking position " + str(check_pos))
 		
 		# Check A: Is this specific tile buildable terrain?
 		var data = $FloorLayer.get_cell_tile_data(check_pos)

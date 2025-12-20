@@ -15,7 +15,6 @@ func _draw():
 	if show_range_setup:
 		# Draw a filled circle (transparent color)
 		var position = Vector2.ZERO
-		position.x -= 3
 		position.y -= 10
 
 		draw_circle(position, attack_range, Color(0, 0, 0, 0.3))
