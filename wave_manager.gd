@@ -48,29 +48,28 @@ var kitchen_enemy_catalog = {
 	},
 }
 
-var current_wave: int = 0
-
 @onready var bedroom_timer = $BedroomTimer
 @onready var kitchen_timer = $KitchenTimer
 
 func start_next_wave():
-	current_wave += 1
-	print("--- Starting Wave ", current_wave, " ---")
+	print("--- Starting Wave ", GameData.current_round, " ---")
 
-	emit_signal("bedroom_portal_opened")
-	emit_signal("kitchen_portal_opened")
-	
-	# 1. Calculate Budget (Formula: Wave 1 = 10, Wave 2 = 15, etc.)
-	var budget = 5 + (current_wave * 5)
+	# Calculate Budget (Formula: Wave 1 = 10, Wave 2 = 15, etc.)
+	var budget = 5 + (GameData.current_round * 5)
 	print("Wave Budget: ", budget)
 	
-	# 2. Go Shopping
+	# Bedroom
 	bedroom_enemies = generate_wave_queue(budget, bedroom_enemy_catalog)
-	kitchen_enemies = generate_wave_queue(budget, kitchen_enemy_catalog)
-	
-	# 3. Start Spawning
+	emit_signal("bedroom_portal_opened")
 	bedroom_timer.start(0.5)
-	kitchen_timer.start(0.5)
+	
+	# Kitchen
+	if GameData.current_round >= 5:
+		emit_signal("kitchen_portal_opened")
+		kitchen_enemies = generate_wave_queue(budget, kitchen_enemy_catalog)
+		kitchen_timer.start(0.5)
+	
+	
 
 func generate_wave_queue(budget: int, catalog: Dictionary) -> Array:
 	var enemies_to_spawn = []
