@@ -1,0 +1,14 @@
+[gd_scene load_steps=5 format=3 uid="uid://drhqhe4pjyxef"]
+
+[ext_resource type="PackedScene" uid="uid://dotody6pyb2g2" path="res://towers/BaseProjectileTower.tscn" id="1_lyo0p"]
+[ext_resource type="Script" uid="uid://ckbipfqkcebw0" path="res://towers/closet.gd" id="2_5tyqm"]
+[ext_resource type="Texture2D" uid="uid://dfho3wnj1pkba" path="res://assets/sprites/closet.png" id="2_y2yct"]
+[ext_resource type="PackedScene" uid="uid://cdfdaj3nl1086" path="res://towers/projectiles/HangerProjectile.tscn" id="3_whft2"]
+
+[node name="Closet" instance=ExtResource("1_lyo0p")]
+script = ExtResource("2_5tyqm")
+projectile_scene = ExtResource("3_whft2")
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_y2yct")
+hframes = 4
