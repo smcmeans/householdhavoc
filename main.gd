@@ -4,7 +4,8 @@ var current_ghost_tower: Node2D = null
 var current_tower_cost: int = 0
 
 var occupied_tiles = {}
-var tower_footprint = [Vector2i(0,0), Vector2i(-1,0), Vector2i(0,-1), Vector2i(-1,-1)]
+# [0, 0] is top left
+var tower_footprint = [Vector2i(0,0), Vector2i(1,0), Vector2i(0,1), Vector2i(1, 1)]
 
 # Link the signal from the menu
 func _ready():
@@ -34,69 +35,68 @@ func _on_build_requested(tower_scene, cost):
 	current_ghost_tower.set_range_visible(true)
 
 func _process(delta):
-	# If we are holding a ghost, make it follow the mouse
 	if current_ghost_tower != null:
-
 		var mouse_pos = get_global_mouse_position()
-		# mouse_pos.y += 13 # Adjust for tile offset
-		# mouse_pos.x += 3  # Adjust for tile offset
-
-		# Snap to mouse position
+        
+        # 1. Get the Anchor Grid Coordinate
 		var tile_pos = $FloorLayer.local_to_map(mouse_pos)
-		
-		# Get the pixel center of that tile (e.g., Vector2(176, 112))
+        
+        # 2. Check Validity
+		var is_valid = can_place_tower_at(tile_pos)
+        
+        # 3. Visual Snap
+        # We calculate pixel pos from the GRID, not the mouse, for stability.
 		var snap_position = $FloorLayer.map_to_local(tile_pos)
-		snap_position.x -= 8
-		snap_position.y += 8
-		# var snap_position = tile_pos
-
+        
+        # VISUAL OFFSET ADJUSTMENT
+		snap_position.x += 8 
+		snap_position.y += 24 
+        
 		current_ghost_tower.global_position = snap_position
 
-		if not can_place_tower_at(tile_pos):
-			current_ghost_tower.modulate = Color(1, 0, 0, 0.5) # Red tint
+        # 4. Color Logic
+		if not is_valid:
+			current_ghost_tower.modulate = Color(1, 0, 0, 0.5)
 		else:
-			current_ghost_tower.modulate = Color(1, 1, 1, 0.5) # Normal
-			
-		# Checking for "Left Click" to place it
-		if (Input.is_action_just_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and can_place_tower_at(tile_pos):
-			place_tower(snap_position)
+			current_ghost_tower.modulate = Color(1, 1, 1, 0.5)
+            
+        # 5. Placement
+		if (Input.is_action_just_pressed("ui_accept") or Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT)) and is_valid:
+            # PASS THE GRID COORD, NOT PIXEL POS
+			place_tower(tile_pos, snap_position)
 
-func place_tower(location):
-	
-	# 2. Make the ghost "Real"
-	current_ghost_tower.modulate = Color(1, 1, 1, 1) # Fully visible
-	current_ghost_tower.process_mode = Node.PROCESS_MODE_INHERIT # Turn brain back on
-	
-	# 3. Forget the ghost (so we stop moving it)
+func place_tower(grid_pos: Vector2i, pixel_pos: Vector2):
+    
+	current_ghost_tower.modulate = Color(1, 1, 1, 1)
+	current_ghost_tower.process_mode = Node.PROCESS_MODE_INHERIT
+	current_ghost_tower.global_position = pixel_pos # Ensure it stays exactly where the ghost was
+    
 	current_ghost_tower = null
-	print("Tower placed!")
+	print("Tower placed at ", grid_pos)
 
-	var grid_pos = $FloorLayer.local_to_map(location)
+    # USE THE SAME FOOTPRINT VARIABLE
 	for offset in tower_footprint:
 		var mark_pos = grid_pos + offset
 		occupied_tiles[mark_pos] = true
-	# 4. Deduct money
+        
 	GameData.remove_money(current_tower_cost)
-	print(str(occupied_tiles))
+    # print(str(occupied_tiles))
 
 func can_place_tower_at(anchor_grid_pos: Vector2i) -> bool:
-	# 1. Get the "Anchor" grid position from the mouse
-	
-	# 2. Check EVERY tile in the footprint
+    # USE THE SAME FOOTPRINT VARIABLE
 	for offset in tower_footprint:
 		var check_pos = anchor_grid_pos + offset
-		print("Checking position " + str(check_pos))
-		
-		# Check A: Is this specific tile buildable terrain?
+			
+			# Check A: Terrain
 		var data = $FloorLayer.get_cell_tile_data(check_pos)
+			# Note: Added 'data' check to prevent crash if mouse is outside map
 		if not data or not data.get_custom_data("can_build"):
 			return false
-			
-		# Check B: Is this specific tile already occupied?
+				
+			# Check B: Occupied
 		if occupied_tiles.has(check_pos):
 			return false
-			
-	# 3. If we survived the loop, ALL tiles are clear!
+				
 	return true
 
 func _on_bedroom_portal_opened():
