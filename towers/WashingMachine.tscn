@@ -13,7 +13,7 @@ attack_range = 100.0
 texture = ExtResource("3_0j5l5")
 
 [node name="TurretHead" type="Node2D" parent="." index="3"]
-position = Vector2(0, -16)
+position = Vector2(-3, -10)
 
 [node name="WaterStream" type="Area2D" parent="TurretHead" index="0"]
 collision_layer = 0

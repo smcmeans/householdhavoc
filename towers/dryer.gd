@@ -139,6 +139,7 @@ func _update_stats(path_id, tier):
 			attack_range += 50
 			# Update the collision shape
 			$DetectionRange/CollisionShape2D.shape.radius = attack_range
+			set_range_visible(true)
 		elif tier == 2:
 			fire_rate *= 0.8 # Lower is faster (20% reduction)
 		elif tier == 3:

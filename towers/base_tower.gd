@@ -95,17 +95,11 @@ func is_turret_aimed():
 	return true
 
 func _draw():
-	# Only draw if we are hovering, placing, or debugging
-	if show_range_setup:
-		# Draw a filled circle (transparent color)
-		draw_circle(Vector2.ZERO, attack_range, Color(0, 0, 0, 0.3))
-		
-		# Draw a border outline for better visibility
-		draw_arc(Vector2.ZERO, attack_range, 0, TAU, 32, Color.WHITE, 2.0)
+	pass
 
 # Function to toggle this on/off from other scripts
 func set_range_visible(is_visible: bool):
-	show_range_setup = is_visible
+	$RangeIndicator.update_range_visuals(attack_range, is_visible)
 	queue_redraw() # Tells Godot "The visuals changed, run _draw() again!"
 
 func _on_click_area_mouse_entered():

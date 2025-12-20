@@ -21,6 +21,19 @@ func _ready():
 		water_stream_area.area_entered.connect(_on_stream_area_entered)
 	if not water_stream_area.area_exited.is_connected(_on_stream_area_exited):
 		water_stream_area.area_exited.connect(_on_stream_area_exited)
+
+	path_1_upgrades = {
+		1: { "name": "Increased Water Pressure", "cost": 150, "icon": null, "description": "Increases range by 50." },
+		2: { "name": "Powerful Water",    "cost": 400, "icon": null, "description": "Attacks 20% faster." },
+		3: { "name": "Industrial",  "cost": 1200,"icon": null, "description": "Huge range and speed boost." }
+	}
+
+	# Path 2: Usually Damage (Power, Status Effects)
+	path_2_upgrades = {
+		1: { "name": "Hot Coils",   "cost": 200, "icon": null, "description": "+1 Damage." },
+		2: { "name": "Steam Vent",  "cost": 550, "icon": null, "description": "Applies burning for longer." },
+		3: { "name": "Plasma Heat", "cost": 1500,"icon": null, "description": "damages all trapped enemies." }
+	}
 	
 
 
@@ -99,7 +112,7 @@ func _physics_process(delta):
 		
 		# If they have been here for 1 second since last hit... ZAP!
 		# (You can swap '1.0' with 'fire_rate' if you want it upgradable)
-		if enemies_in_stream[enemy] >= 1.0:
+		if enemies_in_stream[enemy] >= fire_rate:
 			hit_enemy(enemy)
 			enemies_in_stream[enemy] = 0.0 # Reset counter
 
@@ -127,3 +140,24 @@ func hit_enemy(enemy):
 	enemy.take_damage(damage)
 	enemy.apply_status("damp", 5.0) 
 	print("Washed ", enemy.name)
+
+func _update_stats(path_id, tier):
+	# PATH 1: SPEED & UTILITY
+	if path_id == 1:
+		if tier == 1:
+			attack_range += 50
+			# Update the collision shape
+			$DetectionRange/CollisionShape2D.shape.radius = attack_range
+			update_cone_shape()
+			set_range_visible(true)
+		elif tier == 2:
+			fire_rate *= 0.8
+
+	# PATH 2: DAMAGE & FIRE
+	elif path_id == 2:
+		if tier == 1:
+			damage += 1
+		elif tier == 2:
+			damage += 100 
+		elif tier == 3:
+			damage += 100
