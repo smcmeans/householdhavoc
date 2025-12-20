@@ -42,11 +42,14 @@ func refresh_ui():
 		var data = current_tower.path_1_upgrades[next_t1]
 		$HBoxContainer/Path1/Path1Name.text = data["name"]
 		$HBoxContainer/Path1/Path1Cost.text = "$" + str(data["cost"])
+		$HBoxContainer/Path1/Path1Description.visible = true
+		$HBoxContainer/Path1/Path1Description.text = data["description"]
 		$HBoxContainer/Path1/BtnPath1.disabled = false
 		$HBoxContainer/Path1/BtnPath1.text = "Buy"
 	else:
 		$HBoxContainer/Path1/Path1Name.text = "MAXED"
 		$HBoxContainer/Path1/Path1Cost.text = "---"
+		$HBoxContainer/Path1/Path1Description.visible = false
 		$HBoxContainer/Path1/BtnPath1.disabled = true
 		$HBoxContainer/Path1/BtnPath1.text = "Done"
 
@@ -56,11 +59,14 @@ func refresh_ui():
 		var data = current_tower.path_2_upgrades[next_t2]
 		$HBoxContainer/Path2/Path2Name.text = data["name"]
 		$HBoxContainer/Path2/Path2Cost.text = "$" + str(data["cost"])
+		$HBoxContainer/Path2/Path2Description.visible = true
+		$HBoxContainer/Path2/Path2Description.text = data["description"]
 		$HBoxContainer/Path2/BtnPath2.disabled = false
 		$HBoxContainer/Path2/BtnPath2.text = "Buy"
 	else:
 		$HBoxContainer/Path2/Path2Name.text = "MAXED"
 		$HBoxContainer/Path2/Path2Cost.text = "---"
+		$HBoxContainer/Path2/Path2Description.visible = false
 		$HBoxContainer/Path2/BtnPath2.disabled = true
 		$HBoxContainer/Path2/BtnPath2.text = "Done"
 func _on_btn_path_1_pressed():
