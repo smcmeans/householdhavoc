@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dotody6pyb2g2"]
+
+[ext_resource type="PackedScene" uid="uid://dyv051ckna75w" path="res://towers/BaseTower.tscn" id="1_dyp03"]
+[ext_resource type="Script" uid="uid://01shl4chrrfi" path="res://towers/base_projectile_tower.gd" id="2_bxfe2"]
+
+[node name="BaseTower" instance=ExtResource("1_dyp03")]
+script = ExtResource("2_bxfe2")
+projectile_scene = null
+projectile_speed = 400.0
+projectile_piercing = 1
+
+[node name="Pivot" type="Node2D" parent="." index="5"]
+position = Vector2(0, -13)
+
+[node name="SpawnPoint" type="Marker2D" parent="Pivot" index="0"]
