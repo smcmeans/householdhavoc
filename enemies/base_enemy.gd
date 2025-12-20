@@ -147,6 +147,9 @@ func apply_status(effect_name: String, duration: float):
 		remove_status("damp")
 
 	if effect_name == "damp":
+		# Enemies in the "utensil" category are immune to the "damp" status.
+		if category == "utensil":
+			return
 		if has_status("burning"):
 			apply_status_helper("dry", 5.0)
 			# TODO: Add steam blast
