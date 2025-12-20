@@ -39,6 +39,7 @@ func _ready():
 func _physics_process(delta):
 	update_target()
 	
+	
 	# If we have a target and the gun is loaded... FIRE!
 	if current_target != null and is_ready_to_fire and is_turret_aimed():
 		fire()
