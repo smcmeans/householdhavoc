@@ -227,7 +227,7 @@ func visibility(able_to_be_seen: bool):
 	targetable = able_to_be_seen
 
 func get_current_velocity() -> Vector2:
-    # Get the direction the sprite is facing (assuming it faces forward on the path)
+	# Get the direction the sprite is facing (assuming it faces forward on the path)
 	var direction_vector = Vector2.RIGHT.rotated(rotation)
 	return direction_vector * move_speed * speed_mult
 
@@ -236,3 +236,14 @@ func push_backwards(delta: float):
 	progress -= 100 * delta
 	if progress < 0:
 		progress = 0
+	
+func set_boss_enemy():
+	max_health *= 5
+	current_health = max_health
+	health_bar.max_value = max_health
+	health_bar.value = current_health
+	sprite.scale *= 4
+	$DropShadow.scale *= 4
+	$Hitbox/CollisionShape2D.scale *= 4
+	move_speed *= 0.5
+	anim_player.speed_scale = move_speed / 150.0

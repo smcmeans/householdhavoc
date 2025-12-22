@@ -7,8 +7,10 @@ extends Node
 var bedroom_enemies: Array
 var kitchen_enemies: Array
 
-var bedroom_finished: bool = false
-var kitchen_finished: bool = false
+var rooms_finished = {
+	"bedroom": true,
+	"kitchen": true
+}
 
 signal enable_wave_button
 signal bedroom_portal_opened
@@ -72,6 +74,22 @@ func start_next_wave():
 	
 
 func generate_wave_queue(budget: int, catalog: Dictionary) -> Array:
+	if is_boss_round():
+		# Boss Wave: Just spawn one expensive enemy if possible
+		var boss_options = []
+		for key in catalog:
+			if catalog[key]["cost"] <= budget:
+				boss_options.append(key)
+		if boss_options.size() > 0:
+			var boss_name = boss_options.pick_random()
+			print("Boss Wave! Spawning single ", boss_name)
+			return [{
+				"scene": catalog[boss_name]["scene"],
+				"delay": 0.0
+			}]
+		else:
+			print("Boss Wave! But no affordable enemies. Skipping spawn.")
+			return []
 	var enemies_to_spawn = []
 	
 	# Safety loop to prevent infinite freezing if math goes wrong
@@ -146,49 +164,39 @@ func generate_wave_queue(budget: int, catalog: Dictionary) -> Array:
 	return enemies_to_spawn
 
 func _on_bedroom_timer_timeout():
-	if bedroom_enemies.size() == 0:
-		bedroom_timer.stop()
-		return
-
-	var enemy_data = bedroom_enemies.pop_front()
-	
-	var new_enemy = enemy_data["scene"].instantiate()
-	path_bedroom.add_child(new_enemy)
-	
-	if bedroom_enemies.size() > 0:
-		# We still have enemies! Schedule the next one.
-		var next_delay = bedroom_enemies[0]["delay"] # Peek at the next delay
-		bedroom_timer.start(next_delay)
-	else:
-		# The list is now empty! We just spawned the last one.
-		print("Wave Spawning Finished! Last enemy spawned.")
-		emit_signal("enable_wave_button")
-		bedroom_timer.stop()
-		bedroom_finished = true
-		emit_signal("bedroom_portal_closed")
-		check_all_finished()
+	_spawn_enemy_on_path(bedroom_enemies, path_bedroom, bedroom_timer, "bedroom", "bedroom_portal_closed")
 
 func _on_kitchen_timer_timeout():
-	if kitchen_enemies.size() == 0:
-		kitchen_timer.stop()
+	_spawn_enemy_on_path(kitchen_enemies, path_kitchen, kitchen_timer, "kitchen", "kitchen_portal_closed")
+	
+func _spawn_enemy_on_path(enemies: Array, path: Path2D, timer: Timer, room: String, portal_closed_signal: String):
+	if enemies.size() == 0:
+		timer.stop()
 		return
-	var enemy_data = kitchen_enemies.pop_front()
+	var enemy_data = enemies.pop_front()
 	
 	var new_enemy = enemy_data["scene"].instantiate()
-	path_kitchen.add_child(new_enemy)
+	path.add_child(new_enemy)
+	if is_boss_round():
+		new_enemy.set_boss_enemy()
 	
-	if kitchen_enemies.size() > 0:
+	if enemies.size() > 0:
 		# We still have enemies! Schedule the next one.
-		var next_delay = kitchen_enemies[0]["delay"] # Peek at the next delay
-		kitchen_timer.start(next_delay)
+		var next_delay = enemies[0]["delay"] # Peek at the next delay
+		timer.start(next_delay)
 	else:
 		# The list is now empty! We just spawned the last one.
 		print("Wave Spawning Finished! Last enemy spawned.")
-		kitchen_timer.stop()
-		kitchen_finished = true
-		emit_signal("kitchen_portal_closed")
+		timer.stop()
+		rooms_finished[room] = true
+		emit_signal(portal_closed_signal)
 		check_all_finished()
 
 func check_all_finished():
-	if bedroom_finished and kitchen_finished:
-		emit_signal("enable_wave_button")
+	for room in rooms_finished.keys():
+		if not rooms_finished[room]:
+			return
+	emit_signal("enable_wave_button")
+
+func is_boss_round() -> bool:
+	return GameData.current_round % 10 == 0
