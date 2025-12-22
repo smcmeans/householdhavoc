@@ -5,10 +5,8 @@ var is_door_open: bool = false
 @onready var anim_player = $AnimationPlayer
 
 func _physics_process(delta):
-    # 1. Run Base Logic (Finds/Updates targets)
 	super(delta)
     
-    # 2. DOOR LOGIC
     # Case A: We have a target, but the door is closed -> OPEN IT
 	if current_target != null and not is_door_open:
 		open_closet()
