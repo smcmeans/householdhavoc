@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://ltf6x2qm3nbt"]
+
+[ext_resource type="PackedScene" uid="uid://ca2tdvknw63gk" path="res://towers/projectiles/BaseProjectile.tscn" id="1_g43t4"]
+[ext_resource type="Script" uid="uid://f28vidxnqru0" path="res://towers/projectiles/fan_projectile.gd" id="2_r2hff"]
+
+[node name="BaseProjectile" instance=ExtResource("1_g43t4")]
+script = ExtResource("2_r2hff")
+
+[node name="ColorRect" type="ColorRect" parent="Sprite2D" index="0"]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 8.0

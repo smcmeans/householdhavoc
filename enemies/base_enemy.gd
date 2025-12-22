@@ -59,6 +59,12 @@ func _process(delta: float) -> void:
 func _physics_process(delta):
 	# Do not move if trapped
 	if (is_trapped):
+		handle_statuses(delta)
+		return
+
+	if has_status("blown_away"):
+		push_backwards(delta)
+		handle_statuses(delta)
 		return
 
 	progress += move_speed * delta * speed_mult
@@ -160,6 +166,9 @@ func apply_status(effect_name: String, duration: float):
 			reduce_status_duration("damp", 1.0)
 			return
 	
+	if effect_name == "blown_away":
+		reduce_status_duration("damp", 1.0)
+
 	if effect_name == "hanger_trapped" and not category == "clothes":
 		return
 
@@ -221,3 +230,9 @@ func get_current_velocity() -> Vector2:
     # Get the direction the sprite is facing (assuming it faces forward on the path)
 	var direction_vector = Vector2.RIGHT.rotated(rotation)
 	return direction_vector * move_speed * speed_mult
+
+func push_backwards(delta: float):
+	# Apply a force in the opposite direction
+	progress -= 100 * delta
+	if progress < 0:
+		progress = 0
