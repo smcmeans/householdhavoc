@@ -39,3 +39,26 @@ text = "Closet ($100)"
 layout_mode = 2
 theme = ExtResource("2_sbxe8")
 text = "Sink ($150)"
+
+[node name="BtnFan" type="Button" parent="GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_sbxe8")
+text = "Fan ($100)"
+
+[node name="BtnFreezer" type="Button" parent="GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_sbxe8")
+text = "Freezer ($300)"
+
+[node name="BtnVinylPlayer" type="Button" parent="GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_sbxe8")
+text = "Vinyl Player ($200)"
+
+[node name="Button3" type="Button" parent="GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_sbxe8")
+
+[node name="Button4" type="Button" parent="GridContainer"]
+layout_mode = 2
+theme = ExtResource("2_sbxe8")
