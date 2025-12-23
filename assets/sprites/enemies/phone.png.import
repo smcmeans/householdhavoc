@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://df76ts8hrutj"
-path="res://.godot/imported/WashingMachine.png-e2c330183a19fc579b5b62e4ae3ce8e8.ctex"
+uid="uid://cw0oyhlunwunk"
+path="res://.godot/imported/phone.png-616649145f552f1b4036f10214b5e1a0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/WashingMachine.png"
-dest_files=["res://.godot/imported/WashingMachine.png-e2c330183a19fc579b5b62e4ae3ce8e8.ctex"]
+source_file="res://assets/sprites/enemies/phone.png"
+dest_files=["res://.godot/imported/phone.png-616649145f552f1b4036f10214b5e1a0.ctex"]
 
 [params]
 

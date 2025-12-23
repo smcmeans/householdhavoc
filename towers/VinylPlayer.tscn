@@ -12,6 +12,6 @@ fire_rate = 1.5
 
 [node name="ColorRect" type="ColorRect" parent="Sprite2D" index="0"]
 offset_left = -16.0
-offset_top = -30.0
+offset_top = -25.0
 offset_right = 16.0
 color = Color(0.70083916, 0.52116334, 0.18634284, 1)

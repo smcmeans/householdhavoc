@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dpdit0qbwvgmj"
-path="res://.godot/imported/apple.png-2b8261e49932b691d65a5727fa4ed090.ctex"
+uid="uid://uhtwuhq8io6g"
+path="res://.godot/imported/mad scientist .png-6bf7c6d8a2c67344c52d4e8e05b1d0aa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/apple.png"
-dest_files=["res://.godot/imported/apple.png-2b8261e49932b691d65a5727fa4ed090.ctex"]
+source_file="res://assets/sprites/characters/mad scientist .png"
+dest_files=["res://.godot/imported/mad scientist .png-6bf7c6d8a2c67344c52d4e8e05b1d0aa.ctex"]
 
 [params]
 

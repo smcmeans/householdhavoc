@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://ci4frd8axfqeg"]
 
 [ext_resource type="PackedScene" uid="uid://b6wq4q6eku185" path="res://enemies/BaseEnemy.tscn" id="1_wywhu"]
-[ext_resource type="Texture2D" uid="uid://dtdpkjvyprtio" path="res://assets/sprites/spoon.png" id="2_6klqi"]
+[ext_resource type="Texture2D" uid="uid://dtdpkjvyprtio" path="res://assets/sprites/enemies/spoon.png" id="2_6klqi"]
 [ext_resource type="Script" uid="uid://dyytc7lgej4f" path="res://enemies/spoon.gd" id="2_u3icl"]
 
 [node name="Spoon" instance=ExtResource("1_wywhu")]

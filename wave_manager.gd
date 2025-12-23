@@ -197,6 +197,7 @@ func check_all_finished():
 		if not rooms_finished[room]:
 			return
 	emit_signal("enable_wave_button")
+	GameData.round_complete()
 
 func is_boss_round() -> bool:
 	return GameData.current_round % 10 == 0

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dttpwl68pey4q"
-path="res://.godot/imported/character 2.png-2f82f58a7b3519be285e5cad619b8cff.ctex"
+uid="uid://bmds085xkbttx"
+path="res://.godot/imported/Dryer.png-8c881e75dcc4ae9adeebee95280ebe91.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/character 2.png"
-dest_files=["res://.godot/imported/character 2.png-2f82f58a7b3519be285e5cad619b8cff.ctex"]
+source_file="res://assets/sprites/towers/Dryer.png"
+dest_files=["res://.godot/imported/Dryer.png-8c881e75dcc4ae9adeebee95280ebe91.ctex"]
 
 [params]
 

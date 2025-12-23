@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://3aa8fuhuey4a"
-path="res://.godot/imported/Sock.png-a620fd104d408182ba5ce61e977e1736.ctex"
+uid="uid://du5sn5c8a1bav"
+path="res://.godot/imported/slash.png-838efca38029654113e4db5fb198e177.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Sock.png"
-dest_files=["res://.godot/imported/Sock.png-a620fd104d408182ba5ce61e977e1736.ctex"]
+source_file="res://assets/sprites/characters/slash.png"
+dest_files=["res://.godot/imported/slash.png-838efca38029654113e4db5fb198e177.ctex"]
 
 [params]
 

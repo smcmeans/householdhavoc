@@ -11,15 +11,15 @@ var spread_angle_degrees: float = 30.0
 func _ready():
 	super()
 	path_1_upgrades = {
-		1: { "name": "Chilled Ice", "cost": 1, "icon": null, "description": "Ice can hit more enemies" },
-		2: { "name": "Freeze Dried Ice",    "cost": 1, "icon": null, "description": "Ice can hit even more enemies" },
-		3: { "name": "Nevermelt Ice",  "cost": 1,"icon": null, "description": "Ice can hit a ton of enemies" }
+		1: { "name": "Chilled Ice", "cost": 100, "icon": null, "description": "Ice can hit more enemies" },
+		2: { "name": "Freeze Dried Ice",    "cost": 300, "icon": null, "description": "Ice can hit even more enemies" },
+		3: { "name": "Nevermelt Ice",  "cost": 1000,"icon": null, "description": "Ice can hit a ton of enemies" }
 	}
 
 	path_2_upgrades = {
-		1: { "name": "Telescoping",   "cost": 1, "icon": null, "description": "Increases range" },
-		2: { "name": "Extra cold",  "cost": 1, "icon": null, "description": "Freezes enemies for longer" },
-		3: { "name": "Faulty Dispenser", "cost": 1,"icon": null, "description": "Shoots a ton of ice" }
+		1: { "name": "Telescoping",   "cost": 200, "icon": null, "description": "Increases range" },
+		2: { "name": "Extra cold",  "cost": 500, "icon": null, "description": "Freezes enemies for longer" },
+		3: { "name": "Faulty Dispenser", "cost": 2000,"icon": null, "description": "Shoots a ton of ice" }
 	}
 
 func _physics_process(delta):

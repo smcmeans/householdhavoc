@@ -2,25 +2,8 @@
 
 [ext_resource type="PackedScene" uid="uid://cchgf8nvbj6co" path="res://characters/BaseCharacter.tscn" id="1_i6isj"]
 [ext_resource type="Script" uid="uid://cr3ce5c1dcl0" path="res://characters/starter_character.gd" id="2_entt7"]
-[ext_resource type="Texture2D" uid="uid://dttpwl68pey4q" path="res://assets/sprites/character 2.png" id="3_i2aha"]
-[ext_resource type="Texture2D" uid="uid://du5sn5c8a1bav" path="res://assets/sprites/slash.png" id="4_3lg2m"]
-
-[sub_resource type="Animation" id="Animation_v4dvb"]
-resource_name = "walk"
-length = 0.4
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
-}
+[ext_resource type="Texture2D" uid="uid://0vhhebr8n4v5" path="res://assets/sprites/characters/character 2 (1).png" id="3_entt7"]
+[ext_resource type="Texture2D" uid="uid://du5sn5c8a1bav" path="res://assets/sprites/characters/slash.png" id="4_3lg2m"]
 
 [sub_resource type="Animation" id="Animation_gmxht"]
 length = 0.001
@@ -47,6 +30,23 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_v4dvb"]
+resource_name = "walk"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_l3a0c"]
@@ -85,7 +85,7 @@ attack_cooldown = 0.1
 sprint_multiplier = 1.5
 
 [node name="Sprite2D" parent="." index="1"]
-texture = ExtResource("3_i2aha")
+texture = ExtResource("3_entt7")
 
 [node name="AnimationPlayer" parent="." index="4"]
 libraries = {

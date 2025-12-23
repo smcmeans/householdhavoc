@@ -9,9 +9,10 @@ script = ExtResource("2_r1o6h")
 freeze_duration = 1.0
 burst_amount = 1
 projectile_scene = ExtResource("3_4tps0")
+attack_range = 100.0
 fire_rate = 3.0
 
 [node name="ColorRect" type="ColorRect" parent="Sprite2D" index="0"]
 offset_left = -16.0
-offset_top = -30.0
+offset_top = -22.0
 offset_right = 16.0

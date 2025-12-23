@@ -11,15 +11,15 @@ var throw_distance: float = 200.0
 func _ready():
 	super()
 	path_1_upgrades = {
-		1: { "name": "Hot water", "cost": 1, "icon": null, "description": "Increases water damage." },
-		2: { "name": "More spray",    "cost": 1, "icon": null, "description": "Increases water sprayed and range." },
-		3: { "name": "Spray Nozell",  "cost": 1,"icon": null, "description": "Sprays all around the sink." }
+		1: { "name": "Hot water", "cost": 200, "icon": null, "description": "Increases water damage." },
+		2: { "name": "More spray",    "cost": 400, "icon": null, "description": "Increases water sprayed and range." },
+		3: { "name": "Spray Nozell",  "cost": 1200,"icon": null, "description": "Sprays all around the sink." }
 	}
 
 	path_2_upgrades = {
-		1: { "name": "Hard water",   "cost": 1, "icon": null, "description": "Water pierces more enemies" },
-		2: { "name": "Better piping",  "cost": 1, "icon": null, "description": "Increases range of sink" },
-		3: { "name": "Dish washer", "cost": 1,"icon": null, "description": "Sink can wash utensils" }
+		1: { "name": "Hard water",   "cost": 100, "icon": null, "description": "Water pierces more enemies" },
+		2: { "name": "Better piping",  "cost": 300, "icon": null, "description": "Increases range of sink" },
+		3: { "name": "Dish washer", "cost": 1600,"icon": null, "description": "Sink can wash utensils" }
 	}
 
 func _physics_process(delta):

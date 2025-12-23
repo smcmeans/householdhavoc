@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b6wq4q6eku185" path="res://enemies/BaseEnemy.tscn" id="1_43as6"]
 [ext_resource type="Script" uid="uid://balkl87s475n8" path="res://enemies/fork.gd" id="2_n230o"]
-[ext_resource type="Texture2D" uid="uid://stivn3nvl5mf" path="res://assets/sprites/fork.png" id="2_oohyp"]
+[ext_resource type="Texture2D" uid="uid://stivn3nvl5mf" path="res://assets/sprites/enemies/fork.png" id="2_oohyp"]
 
 [node name="Fork" instance=ExtResource("1_43as6")]
 script = ExtResource("2_n230o")

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bmds085xkbttx"
-path="res://.godot/imported/Dryer.png-8b15240196e8cab43945ef605e649466.ctex"
+uid="uid://18j40cvc2h01"
+path="res://.godot/imported/KitchenTile (1).png-b84c4df49a9d6e70c9a480a30cc9674a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Dryer.png"
-dest_files=["res://.godot/imported/Dryer.png-8b15240196e8cab43945ef605e649466.ctex"]
+source_file="res://assets/tiles/KitchenTile (1).png"
+dest_files=["res://.godot/imported/KitchenTile (1).png-b84c4df49a9d6e70c9a480a30cc9674a.ctex"]
 
 [params]
 

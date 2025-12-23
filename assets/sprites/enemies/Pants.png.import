@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://3yu7tjb3fxc7"
-path="res://.godot/imported/Pants.png-3a9f87333c8ea3ad0a4b2085a234c672.ctex"
+path="res://.godot/imported/Pants.png-2549ae23de6872951d5292dce975c01e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/Pants.png"
-dest_files=["res://.godot/imported/Pants.png-3a9f87333c8ea3ad0a4b2085a234c672.ctex"]
+source_file="res://assets/sprites/enemies/Pants.png"
+dest_files=["res://.godot/imported/Pants.png-2549ae23de6872951d5292dce975c01e.ctex"]
 
 [params]
 

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cw0oyhlunwunk"
-path="res://.godot/imported/phone.png-50848fb7885ba6213826767eb5748e9d.ctex"
+uid="uid://3aa8fuhuey4a"
+path="res://.godot/imported/Sock.png-900450cd0ca77dc606b5e0b3cb46f81a.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/phone.png"
-dest_files=["res://.godot/imported/phone.png-50848fb7885ba6213826767eb5748e9d.ctex"]
+source_file="res://assets/sprites/enemies/Sock.png"
+dest_files=["res://.godot/imported/Sock.png-900450cd0ca77dc606b5e0b3cb46f81a.ctex"]
 
 [params]
 

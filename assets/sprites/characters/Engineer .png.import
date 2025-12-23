@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://stivn3nvl5mf"
-path="res://.godot/imported/fork.png-3524a211488bfc817dbed1360dcfffcb.ctex"
+uid="uid://d0aotv0s4jiix"
+path="res://.godot/imported/Engineer .png-dd506ac4969d9c0a29ec29ab11412f84.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/fork.png"
-dest_files=["res://.godot/imported/fork.png-3524a211488bfc817dbed1360dcfffcb.ctex"]
+source_file="res://assets/sprites/characters/Engineer .png"
+dest_files=["res://.godot/imported/Engineer .png-dd506ac4969d9c0a29ec29ab11412f84.ctex"]
 
 [params]
 

@@ -12,15 +12,15 @@ var is_door_open: bool = false
 func _ready():
 	super()
 	path_1_upgrades = {
-		1: { "name": "More Hangers", "cost": 1, "icon": null, "description": "Increases hangers thrown by 1." },
-		2: { "name": "Even More Hangers",    "cost": 1, "icon": null, "description": "Increases hangers thrown by 2." },
-		3: { "name": "Bouncy Hangers",  "cost": 1,"icon": null, "description": "Hangers bounce to nearby enemies." }
+		1: { "name": "More Hangers", "cost": 100, "icon": null, "description": "Increases hangers thrown by 1." },
+		2: { "name": "Even More Hangers",    "cost": 200, "icon": null, "description": "Increases hangers thrown by 2." },
+		3: { "name": "Bouncy Hangers",  "cost": 800,"icon": null, "description": "Hangers bounce to nearby enemies." }
 	}
 
 	path_2_upgrades = {
-		1: { "name": "Pointy Hangers",   "cost": 1, "icon": null, "description": "+1 Damage." },
-		2: { "name": "Sturdy Hangers",  "cost": 1, "icon": null, "description": "Traps enemies for longer" },
-		3: { "name": "Powerful Hangers", "cost": 1,"icon": null, "description": "Multiplies Hanger Damage and Massively Increases Range" }
+		1: { "name": "Pointy Hangers",   "cost": 100, "icon": null, "description": "+1 Damage." },
+		2: { "name": "Sturdy Hangers",  "cost": 250, "icon": null, "description": "Traps enemies for longer" },
+		3: { "name": "Powerful Hangers", "cost": 1200,"icon": null, "description": "Multiplies Hanger Damage and Massively Increases Range" }
 	}
 
 func _physics_process(delta):

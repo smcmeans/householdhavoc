@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://du5sn5c8a1bav"
-path="res://.godot/imported/slash.png-dd48357a0476df54434bd1b3e85bacb7.ctex"
+uid="uid://bxvt8rhyoh45e"
+path="res://.godot/imported/WoodFloor (1).png-9722e08a6101ca9fd4667454b1c7afd8.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/slash.png"
-dest_files=["res://.godot/imported/slash.png-dd48357a0476df54434bd1b3e85bacb7.ctex"]
+source_file="res://assets/tiles/WoodFloor (1).png"
+dest_files=["res://.godot/imported/WoodFloor (1).png-9722e08a6101ca9fd4667454b1c7afd8.ctex"]
 
 [params]
 

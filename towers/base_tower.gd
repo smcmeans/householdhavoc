@@ -46,7 +46,6 @@ func _physics_process(delta):
 		start_reload()
 
 # --- Logic ---
-
 func update_target():
 	# If our current target died or escaped, forget them
 	if is_instance_valid(current_target):
@@ -55,12 +54,41 @@ func update_target():
 	else:
 		current_target = null
 
+	if current_target:
+		if not check_line_of_sight(current_target):
+			current_target = null
+
 	# If we have no target, try to find one from potential targets
 	if current_target == null and potential_targets.size() > 0:
 		for enemy in potential_targets:
-			if enemy.targetable:
+			if enemy.targetable and check_line_of_sight(enemy):
 				current_target = enemy
 				break
+
+func check_line_of_sight(target_enemy) -> bool:
+	# 1. Get the physics state of the world
+	var space_state = get_world_2d().direct_space_state
+	
+	# 2. Create the Ray parameters
+	# From: Tower Center
+	# To: Enemy Center
+	var query = PhysicsRayQueryParameters2D.create(global_position, target_enemy.global_position)
+	
+	# 3. IMPORTANT: Configure the Ray
+	# We only want the Ray to hit WALLS (Layer 1). 
+	# If we hit an enemy, that's fine, but walls are the blocker.
+	query.collision_mask = 1 # Only scan for World/Walls
+	
+	# 4. Fire the Ray!
+	var result = space_state.intersect_ray(query)
+	
+	# 5. Interpret Result
+	if result:
+		# If 'result' is not empty, the ray hit a Wall before reaching the destination
+		return false # Vision Blocked!
+	else:
+		# The ray reached the destination without hitting Layer 1
+		return true # Line of Sight Clear!
 
 func start_reload():
 	is_ready_to_fire = false

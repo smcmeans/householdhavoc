@@ -14,15 +14,15 @@ var laundry_load: Array = []
 func _ready():
 	super()
 	path_1_upgrades = {
-		1: { "name": "Lint Roller", "cost": 1, "icon": null, "description": "Increases range." },
-		2: { "name": "High RPM",    "cost": 1, "icon": null, "description": "Attacks 20% faster." },
-		3: { "name": "Spring Loaded",  "cost": 1,"icon": null, "description": "Pushes enemies backwards." }
+		1: { "name": "Lint Roller", "cost": 150, "icon": null, "description": "Increases range." },
+		2: { "name": "High RPM",    "cost": 200, "icon": null, "description": "Attacks 20% faster." },
+		3: { "name": "Spring Loaded",  "cost": 800,"icon": null, "description": "Pushes enemies backwards." }
 	}
 
 	path_2_upgrades = {
-		1: { "name": "Hot Coils",   "cost": 1, "icon": null, "description": "+1 Damage." },
-		2: { "name": "Steam Vent",  "cost": 1, "icon": null, "description": "Applies burning for longer." },
-		3: { "name": "Industrial", "cost": 1,"icon": null, "description": "Increases capacity greatly." }
+		1: { "name": "Hot Coils",   "cost": 100, "icon": null, "description": "+1 Damage." },
+		2: { "name": "Steam Vent",  "cost": 400, "icon": null, "description": "Applies burning for longer." },
+		3: { "name": "Industrial", "cost": 900,"icon": null, "description": "Increases capacity greatly." }
 	}
 
 func _physics_process(delta):

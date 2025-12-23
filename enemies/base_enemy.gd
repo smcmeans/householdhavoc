@@ -4,6 +4,7 @@ class_name Enemy
 @export var move_speed: float = 150.0
 @export var max_health: int = 5
 @export var money_reward: int = 5
+@export var life_penalty: int = 1
 
 @onready var health_bar = $TextureProgressBar
 
@@ -159,6 +160,8 @@ func die():
 	queue_free()
 
 func escape_house():
+	print("Enemy escaped!")
+	GameData.remove_life(life_penalty)
 	queue_free()
 
 func _handle_statuses(delta):

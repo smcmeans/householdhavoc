@@ -30,16 +30,16 @@ func _ready():
 		water_stream_area.area_exited.connect(_on_stream_area_exited)
 
 	path_1_upgrades = {
-		1: { "name": "Increased Water Pressure", "cost": 1, "icon": null, "description": "Increases range." },
-		2: { "name": "Powerful Water", "cost": 1, "icon": null, "description": "Attacks 20% faster." },
-		3: { "name": "Rainy Day Fund",  "cost": 1,"icon": null, "description": "Increases value of washed enemies" },
-		4: { "name": "Storm Surge",  "cost": 1,"icon": null, "description": "Launches a raincloud at the nearest enemy."}
+		1: { "name": "Increased Water Pressure", "cost": 100, "icon": null, "description": "Increases range." },
+		2: { "name": "Powerful Water", "cost": 150, "icon": null, "description": "Attacks 20% faster." },
+		3: { "name": "Rainy Day Fund",  "cost": 800,"icon": null, "description": "Increases value of washed enemies" },
+		4: { "name": "Storm Surge",  "cost": -1,"icon": null, "description": "Launches a raincloud at the nearest enemy."}
 	}
 
 	path_2_upgrades = {
-		1: { "name": "Warm wash",   "cost": 1, "icon": null, "description": "+1 Damage and shrinks enemies" },
-		2: { "name": "Air-Dry resistant",  "cost": 1, "icon": null, "description": "Applies damp for longer." },
-		3: { "name": "Bad piping", "cost": 1,"icon": null, "description": "Sprays water everywhere." }
+		1: { "name": "Warm wash",   "cost": 200, "icon": null, "description": "+1 Damage and shrinks enemies" },
+		2: { "name": "Air-Dry resistant",  "cost": 500, "icon": null, "description": "Applies damp for longer." },
+		3: { "name": "Bad piping", "cost": 10,"icon": null, "description": "Sprays water everywhere." }
 	}
 	
 

@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b6wq4q6eku185" path="res://enemies/BaseEnemy.tscn" id="1_1hrhb"]
 [ext_resource type="Script" uid="uid://m5ps6prx76wn" path="res://enemies/pants.gd" id="2_rbx6p"]
-[ext_resource type="Texture2D" uid="uid://3yu7tjb3fxc7" path="res://assets/sprites/Pants.png" id="3_5lfkn"]
+[ext_resource type="Texture2D" uid="uid://3yu7tjb3fxc7" path="res://assets/sprites/enemies/Pants.png" id="3_5lfkn"]
 
 [node name="Pants" instance=ExtResource("1_1hrhb")]
 script = ExtResource("2_rbx6p")
@@ -13,5 +13,5 @@ max_health = 10
 texture = ExtResource("3_5lfkn")
 offset = Vector2(0, -16)
 
-[node name="DropShadow" parent="." index="3"]
+[node name="DropShadow" parent="." index="2"]
 scale = Vector2(1.2, 1)
