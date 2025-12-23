@@ -52,7 +52,7 @@ func perform_slash_attack():
 	$AnimationPlayer.play("StarterCharacter/attack")
 	await $AnimationPlayer.animation_finished
 	slash_sprite.visible = false
-	$AnimationPlayer.play("StarterCharacter/RESET")
+	$AnimationPlayer.play("RESET")
 
 	# COOLDOWN: Wait before attacking again
 	await get_tree().create_timer(attack_cooldown).timeout
