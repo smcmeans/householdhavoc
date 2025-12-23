@@ -61,7 +61,6 @@ func _process(delta: float) -> void:
 func _physics_process(delta):
 	# Do not move if trapped
 	if (is_trapped):
-		handle_statuses(delta)
 		return
 
 	if has_status("blown_away"):
@@ -115,6 +114,7 @@ func set_trapped(trapped: bool):
 	is_trapped = trapped
 	# Hide the sprite if inside the dryer
 	visibility(not trapped)
+	$Hitbox.monitorable = not trapped
 
 func take_damage(amount: int):
 	if amount <= 0:
@@ -156,7 +156,7 @@ func apply_status(effect_name: String, duration: float):
 
 	if effect_name == "damp":
 		# Enemies in the "utensil" category are immune to the "damp" status.
-		if category == "utensil":
+		if category == "utensil" and not has_status("clean"):
 			return
 		if has_status("burning"):
 			apply_status_helper("dry", 5.0)
@@ -173,6 +173,9 @@ func apply_status(effect_name: String, duration: float):
 
 	if effect_name == "hanger_trapped" and not category == "clothes":
 		return
+
+	if effect_name == "clean":
+		apply_status_helper("damp", duration)
 
 	apply_status_helper(effect_name, duration)
 

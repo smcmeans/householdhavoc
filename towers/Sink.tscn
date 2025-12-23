@@ -9,6 +9,7 @@ script = ExtResource("2_owgj4")
 burst_amount = 3
 spread_angle_degrees = 30.0
 projectile_scene = ExtResource("3_cyh57")
+attack_range = 120.0
 
 [node name="ColorRect" type="ColorRect" parent="Sprite2D" index="0"]
 offset_left = -16.0
