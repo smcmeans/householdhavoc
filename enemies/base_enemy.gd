@@ -40,6 +40,8 @@ func _ready():
 
 	anim_player.speed_scale = move_speed / 150.0
 
+	add_to_group("enemies")
+
 	
 
 func _process(delta: float) -> void:

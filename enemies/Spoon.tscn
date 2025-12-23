@@ -6,6 +6,9 @@
 
 [node name="Spoon" instance=ExtResource("1_wywhu")]
 script = ExtResource("2_u3icl")
+move_speed = 75.0
+max_health = 40
+money_reward = 20
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("2_6klqi")

@@ -6,6 +6,9 @@
 
 [node name="Apple" instance=ExtResource("1_ynhpy")]
 script = ExtResource("2_3ajqa")
+move_speed = 100.0
+max_health = 15
+money_reward = 10
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("3_r1se2")

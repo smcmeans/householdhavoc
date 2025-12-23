@@ -180,3 +180,12 @@ func select_tower():
 func deselect_tower():
 	is_selected = false
 	set_range_visible(false)
+
+func add_attack_range(amount: float):
+	set_attack_range(attack_range + amount)
+
+func set_attack_range(new_range: float):
+	attack_range = new_range
+	# Update the collision shape
+	$DetectionRange/CollisionShape2D.shape.radius = attack_range
+	set_range_visible(true)

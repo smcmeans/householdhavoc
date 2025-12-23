@@ -6,6 +6,7 @@
 
 [node name="Fork" instance=ExtResource("1_43as6")]
 script = ExtResource("2_n230o")
+money_reward = 10
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("2_oohyp")

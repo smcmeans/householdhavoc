@@ -6,6 +6,8 @@
 
 [node name="Banana" instance=ExtResource("1_yb3lv")]
 script = ExtResource("2_jsguw")
+max_health = 20
+money_reward = 20
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("2_6si02")
