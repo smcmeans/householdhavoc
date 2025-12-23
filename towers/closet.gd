@@ -64,23 +64,6 @@ func close_closet():
 	is_door_open = false
 	anim_player.play("close")
 
-func start_recoil_shake():
-	# 1. Get the sprite (Make sure this path is correct for your scene!)
-	var sprite = $Sprite2D
-	
-	# 2. Create a Tween
-	var tween = create_tween()
-	
-	# 3. Define the Shake (Kick back -> Return)
-	# Since the sprite is inside the Pivot, moving X negative kicks it "backwards"
-	# regardless of which way the tower is rotating.
-	
-	# Step A: Kick back 10 pixels instantly (0.05 seconds)
-	tween.tween_property(sprite, "position:x", -5.0, 0.02)
-	
-	# Step B: Return to center (0.0) slightly slower (0.1 seconds)
-	tween.tween_property(sprite, "position:x", 0.0, 0.1)
-
 func _update_stats(path_id, tier):
 	if path_id == 1:
 		if tier == 1:

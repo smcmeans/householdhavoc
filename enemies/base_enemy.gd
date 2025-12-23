@@ -26,6 +26,7 @@ var speed_mult = 1
 # Stores how much time has passed since the last status damage tick
 # Format: { "burning": 0.5, "poison": 0.2 }
 var status_ticks = {}
+var distance_to_move: float = 0.0
 
 func _ready():
 	current_health = max_health
@@ -71,8 +72,9 @@ func _physics_process(delta):
 		return
 
 	# Progress along the path, deal with statuses
-	progress += move_speed * delta * speed_mult
+	distance_to_move = move_speed * delta * speed_mult
 	take_damage(_status_damage_over_time(delta))
+	progress += distance_to_move
 	if progress_ratio >= 1.0:
 		escape_house()
 	_handle_statuses(delta)
@@ -110,6 +112,22 @@ func _status_damage_over_time(delta):
 			
 			# Optional: Add a cool visual effect here!
 			# create_burn_particle()
+
+	# --- SPINNING LOGIC ---
+	if active_statuses.has("spinning"):
+		
+		# 1. Initialize the timer if it doesn't exist yet
+		if not status_ticks.has("spinning"):
+			status_ticks["spinning"] = 0.0
+			
+		# 2. Add time to the bucket
+		status_ticks["spinning"] += delta
+		
+		# 3. Check if bucket is full (1.0 second has passed)
+		if status_ticks["spinning"] >= 0.2:
+			speed_mult *= -1.0
+			status_ticks["spinning"] -= 0.2 # Remove 1 second, keep the remainder
+			
 
 	return damage_to_deal
 
