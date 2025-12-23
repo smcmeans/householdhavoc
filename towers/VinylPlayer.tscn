@@ -1,10 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://boou4huqvvprg"]
+[gd_scene load_steps=4 format=3 uid="uid://boou4huqvvprg"]
 
 [ext_resource type="PackedScene" uid="uid://dotody6pyb2g2" path="res://towers/BaseProjectileTower.tscn" id="1_6anq4"]
 [ext_resource type="PackedScene" uid="uid://rpu6xrtf4mf8" path="res://towers/projectiles/VinylProjectile.tscn" id="2_fdsn8"]
+[ext_resource type="Script" uid="uid://bt4pup1nhpxq8" path="res://towers/vinyl_player.gd" id="2_po8li"]
 
 [node name="VinylPlayer" instance=ExtResource("1_6anq4")]
+script = ExtResource("2_po8li")
+projectile_spin_time = 1.0
 projectile_scene = ExtResource("2_fdsn8")
+fire_rate = 1.5
 
 [node name="ColorRect" type="ColorRect" parent="Sprite2D" index="0"]
 offset_left = -16.0
