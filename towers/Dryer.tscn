@@ -10,7 +10,7 @@ capacity = 3
 suck_speed = 0.5
 throw_distance = 100.0
 burn_duration = 5.0
-attack_range = 100.0
+attack_range = 50.0
 fire_rate = 2.0
 
 [node name="Sprite2D" parent="." index="0"]

@@ -8,6 +8,13 @@ extends Tower # We extend our custom class, not Node2D!
 @onready var stream_collider = $TurretHead/WaterStream/CollisionPolygon2D
 
 var enemies_in_stream: Dictionary = {}
+var cleans_enemies: bool = false
+# var raincloud_scene: PackedScene = preload("res://projectiles/Raincloud.tscn")
+var storm_surge_added: bool = false
+var shrinks_enemies: bool = false
+var damp_duration: float = 5.0
+
+# TODO: Add raincloud logic later
 
 func _ready():
 	super()
@@ -23,16 +30,16 @@ func _ready():
 		water_stream_area.area_exited.connect(_on_stream_area_exited)
 
 	path_1_upgrades = {
-		1: { "name": "Increased Water Pressure", "cost": 150, "icon": null, "description": "Increases range by 50." },
-		2: { "name": "Powerful Water",    "cost": 400, "icon": null, "description": "Attacks 20% faster." },
-		3: { "name": "Industrial",  "cost": 1200,"icon": null, "description": "Huge range and speed boost." }
+		1: { "name": "Increased Water Pressure", "cost": 1, "icon": null, "description": "Increases range." },
+		2: { "name": "Powerful Water", "cost": 1, "icon": null, "description": "Attacks 20% faster." },
+		3: { "name": "Rainy Day Fund",  "cost": 1,"icon": null, "description": "Increases value of washed enemies" },
+		4: { "name": "Storm Surge",  "cost": 1,"icon": null, "description": "Launches a raincloud at the nearest enemy."}
 	}
 
-	# Path 2: Usually Damage (Power, Status Effects)
 	path_2_upgrades = {
-		1: { "name": "Hot Coils",   "cost": 200, "icon": null, "description": "+1 Damage." },
-		2: { "name": "Steam Vent",  "cost": 550, "icon": null, "description": "Applies burning for longer." },
-		3: { "name": "Plasma Heat", "cost": 1500,"icon": null, "description": "damages all trapped enemies." }
+		1: { "name": "Warm wash",   "cost": 1, "icon": null, "description": "+1 Damage and shrinks enemies" },
+		2: { "name": "Air-Dry resistant",  "cost": 1, "icon": null, "description": "Applies damp for longer." },
+		3: { "name": "Bad piping", "cost": 1,"icon": null, "description": "Sprays water everywhere." }
 	}
 	
 
@@ -110,8 +117,7 @@ func _physics_process(delta):
 		# Add time to their personal counter
 		enemies_in_stream[enemy] += delta
 		
-		# If they have been here for 1 second since last hit... ZAP!
-		# (You can swap '1.0' with 'fire_rate' if you want it upgradable)
+		# Hit them if enough time has passed
 		if enemies_in_stream[enemy] >= fire_rate:
 			hit_enemy(enemy)
 			enemies_in_stream[enemy] = 0.0 # Reset counter
@@ -138,26 +144,33 @@ func _on_stream_area_exited(area):
 # Helper function to keep code clean
 func hit_enemy(enemy):
 	enemy.take_damage(damage)
-	enemy.apply_status("damp", 5.0) 
+	enemy.apply_status("damp", damp_duration) 
+	if cleans_enemies and not enemy.cleaned:
+		enemy.cleaned = true
+	if shrinks_enemies:
+		enemy.apply_status("shrunken", damp_duration)
 	print("Washed ", enemy.name)
 
 func _update_stats(path_id, tier):
-	# PATH 1: SPEED & UTILITY
 	if path_id == 1:
 		if tier == 1:
-			attack_range += 50
-			# Update the collision shape
-			$DetectionRange/CollisionShape2D.shape.radius = attack_range
-			update_cone_shape()
-			set_range_visible(true)
+			add_attack_range(25)
 		elif tier == 2:
 			fire_rate *= 0.8
-
-	# PATH 2: DAMAGE & FIRE
+		elif tier == 3:
+			cleans_enemies = true
+		elif tier == 4:
+			storm_surge_added = true
 	elif path_id == 2:
 		if tier == 1:
 			damage += 1
+			shrinks_enemies = true
 		elif tier == 2:
-			damage += 100 
+			damp_duration += 5.0
 		elif tier == 3:
-			damage += 100
+			cone_spread = 90.0 # Probably change this upgrade
+			update_cone_shape()
+
+func add_attack_range(amount: float):
+	super.add_attack_range(amount)
+	update_cone_shape()

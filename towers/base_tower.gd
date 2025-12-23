@@ -176,7 +176,7 @@ func select_tower():
 	if upgrade_menu:
 		upgrade_menu.open_menu(self)
 
-# sCreate a function to "Deselect" (Called later by the UI)
+# Create a function to "Deselect" (Called later by the UI)
 func deselect_tower():
 	is_selected = false
 	set_range_visible(false)

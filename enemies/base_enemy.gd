@@ -12,7 +12,9 @@ class_name Enemy
 var default_color = Color(1, 1, 1, 1)
 var is_trapped: bool = false
 var targetable: bool = true
+var cleaned: bool = false
 
+# The type of enemy, usefule for status effect interactions
 var category: String = ""
  
 var current_health: int
@@ -21,14 +23,14 @@ var active_statuses: Dictionary = {}
 
 var speed_mult = 1
 
-# Stores how much time has passed since the last burn tick
+# Stores how much time has passed since the last status damage tick
 # Format: { "burning": 0.5, "poison": 0.2 }
 var status_ticks = {}
 
 func _ready():
 	current_health = max_health
 	
-	# SETUP THE BAR
+	# Health Bar Setup
 	health_bar.max_value = max_health
 	health_bar.value = current_health
 	 
@@ -65,16 +67,17 @@ func _physics_process(delta):
 
 	if has_status("blown_away"):
 		push_backwards(delta)
-		handle_statuses(delta)
+		_handle_statuses(delta)
 		return
 
+	# Progress along the path, deal with statuses
 	progress += move_speed * delta * speed_mult
-	take_damage(status_damage_over_time(delta))
+	take_damage(_status_damage_over_time(delta))
 	if progress_ratio >= 1.0:
 		escape_house()
-	handle_statuses(delta)
+	_handle_statuses(delta)
 
-func update_speed_mult() -> void:
+func _update_speed_mult() -> void:
 	speed_mult = 1
 	if has_status("damp"):
 		speed_mult *= 0.8
@@ -87,7 +90,7 @@ func update_speed_mult() -> void:
 	# Adjust animation speed
 	anim_player.speed_scale = (move_speed / 150.0) * speed_mult
 
-func status_damage_over_time(delta):
+func _status_damage_over_time(delta):
 	var damage_to_deal = 0
 	
 	# --- BURNING LOGIC ---
@@ -132,13 +135,15 @@ func take_damage(amount: int):
 
 func die():
 	print("Enemy died!")
+	if cleaned:
+		money_reward *= 1.5
 	GameData.add_money(money_reward)
 	queue_free()
 
 func escape_house():
 	queue_free()
 
-func handle_statuses(delta):
+func _handle_statuses(delta):
 	# We get the keys first so we can safely remove items while looping
 	var current_effects = active_statuses.keys()
 	
@@ -156,10 +161,10 @@ func apply_status(effect_name: String, duration: float):
 
 	if effect_name == "damp":
 		# Enemies in the "utensil" category are immune to the "damp" status.
-		if category == "utensil" and not has_status("clean"):
+		if category == "utensil":
 			return
 		if has_status("burning"):
-			apply_status_helper("dry", 5.0)
+			_apply_status_helper("dry", 5.0)
 			# TODO: Add steam blast
 			take_damage(int(active_statuses["burning"]))
 			remove_status("burning")
@@ -175,18 +180,18 @@ func apply_status(effect_name: String, duration: float):
 		return
 
 	if effect_name == "clean":
-		apply_status_helper("damp", duration)
+		_apply_status_helper("damp", duration)
 
-	apply_status_helper(effect_name, duration)
+	_apply_status_helper(effect_name, duration)
 
-func apply_status_helper(effect_name: String, duration: float):
+func _apply_status_helper(effect_name: String, duration: float):
 	# Add or refresh the status
 	active_statuses[effect_name] = duration
 	
 	# Update visuals immediately
 	update_status_visuals()
 	# Update speed multiplier
-	update_speed_mult()
+	_update_speed_mult()
 	print(name + " applied status: " + effect_name)
 
 func remove_status(effect_name: String):
@@ -194,7 +199,7 @@ func remove_status(effect_name: String):
 		active_statuses.erase(effect_name)
 		update_status_visuals()
 		print(name + " removed status: " + effect_name)
-	update_speed_mult()
+	_update_speed_mult()
 
 # Helper for Towers to check
 func has_status(effect_name: String) -> bool:
@@ -212,8 +217,9 @@ func reduce_status_duration(status_name: String, amount: float):
 func update_status_visuals():
 	# Reset to normal first
 	sprite.modulate = default_color
+	sprite.scale = Vector2(1, 1)
 	
-	# Check priorities (Last one applied wins, or define a hierarchy)
+	# Apply effects based on statuses
 	if has_status("frozen"):
 		sprite.modulate = Color(0.5, 1, 1) # Cyan
 	elif has_status("damp"):
@@ -221,6 +227,10 @@ func update_status_visuals():
 	elif has_status("burning"):
 		sprite.modulate = Color(1, 0.5, 0.5) # Red tint
 
+	if has_status("shrunken"):
+		sprite.scale *= 0.8
+
+	
 func visibility(able_to_be_seen: bool):
 	if has_node("Sprite2D"):
 		sprite.visible = able_to_be_seen
@@ -232,7 +242,7 @@ func visibility(able_to_be_seen: bool):
 	targetable = able_to_be_seen
 
 func get_current_velocity() -> Vector2:
-	# Get the direction the sprite is facing (assuming it faces forward on the path)
+	# Get the direction the sprite is facing
 	var direction_vector = Vector2.RIGHT.rotated(rotation)
 	return direction_vector * move_speed * speed_mult
 

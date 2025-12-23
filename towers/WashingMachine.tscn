@@ -7,7 +7,7 @@
 [node name="WashingMachine" instance=ExtResource("1_vn6qs")]
 script = ExtResource("2_0j5l5")
 cone_spread = 30.0
-attack_range = 100.0
+attack_range = 50.0
 
 [node name="Sprite2D" parent="." index="0"]
 texture = ExtResource("3_0j5l5")
