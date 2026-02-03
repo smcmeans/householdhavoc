@@ -59,11 +59,17 @@ func update_target():
 			current_target = null
 
 	# If we have no target, try to find one from potential targets
-	if current_target == null and potential_targets.size() > 0:
+	#if current_target == null and potential_targets.size() > 0:
+
+	var furthest_enemy: Enemy = null
+	if potential_targets.size() > 0:
 		for enemy in potential_targets:
 			if enemy.targetable and check_line_of_sight(enemy):
-				current_target = enemy
-				break
+				if furthest_enemy == null or enemy.progress > furthest_enemy.progress:
+					furthest_enemy = enemy
+				#current_target = enemy
+				#break
+		current_target = furthest_enemy
 
 func check_line_of_sight(target_enemy) -> bool:
 	# 1. Get the physics state of the world
