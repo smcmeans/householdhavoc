@@ -7,6 +7,7 @@ var speed: float = 400.0
 var piercing: int = 1
 var damage: int = 1
 var direction: Vector2 = Vector2.RIGHT
+var enemies_hit: Array[Enemy] = []
 
 @onready var sprite = $Sprite2D 
 
@@ -53,6 +54,11 @@ func _on_hit(area):
 	
 	# Verify it is an enemy
 	if enemy is Enemy and piercing > 0:
+		# Prevent hitting the same enemy multiple times
+		if enemy in enemies_hit:
+			return
+		enemies_hit.append(enemy)
+
 		apply_effect(enemy)
 		piercing -= 1
 		if piercing <= 0:
