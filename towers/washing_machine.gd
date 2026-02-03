@@ -104,8 +104,7 @@ func _physics_process(delta):
 		if stream_visuals: stream_visuals.visible = true
 	else:
 		if stream_visuals: stream_visuals.visible = false
-
-	# 2. NEW: Handle Damage Over Time (DoT)
+	
 	# We loop through every enemy currently in the water
 	for enemy in enemies_in_stream.keys():
 		
