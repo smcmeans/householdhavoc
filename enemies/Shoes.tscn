@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://j8fh7nff4auv"]
+
+[ext_resource type="PackedScene" uid="uid://b6wq4q6eku185" path="res://enemies/BaseEnemy.tscn" id="1_4juhs"]
+
+[node name="Shoes" instance=ExtResource("1_4juhs")]
+move_speed = 300.0
+category = "clothing"
+
+[node name="ColorRect" type="ColorRect" parent="Sprite2D" index="0"]
+offset_left = -8.0
+offset_top = -13.0
+offset_right = 8.0
+offset_bottom = 2.0
+
+[node name="Label" type="Label" parent="Sprite2D/ColorRect" index="0"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 10
+text = "Shoes"

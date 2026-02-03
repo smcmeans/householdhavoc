@@ -23,30 +23,83 @@ signal kitchen_portal_closed
 var bedroom_enemy_catalog = {
 	"Sock": {
 		"scene": preload("res://enemies/Sock.tscn"),
-		"cost": 1
+		"cost": 1,
+		"wave": 1
 	},
 	"Pants": {
 		"scene": preload("res://enemies/Pants.tscn"),
-		"cost": 5
-	}
+		"cost": 5,
+		"wave": 2
+	},
+	"Shirt": {
+		"scene": preload("res://enemies/Shirt.tscn"),
+		"cost": 8,
+		"wave": 5
+	},
+	"Shoes": {
+		"scene": preload("res://enemies/Shoes.tscn"),
+		"cost": 12,
+		"wave": 10
+	},
+	"Glasses": {
+		"scene": preload("res://enemies/Glasses.tscn"),
+		"cost": 5,
+		"wave": 13
+
+	},
+	"Hat": {
+		"scene": preload("res://enemies/Hat.tscn"),
+		"cost": 25,
+		"wave": 15
+	},
+}
+
+var bedroom_boss_catalog = {
+	"Outfit": {
+		"scene": preload("res://enemies/Outfit.tscn"),
+		"cost": 1,
+		"wave": 10
+	},
+	"BedMonster": {
+		"scene": preload("res://enemies/BedMonster.tscn"),
+		"cost": 2,
+		"wave": 20
+	},
 }
 
 var kitchen_enemy_catalog = {
 	"Spoon": {
 		"scene": preload("res://enemies/Spoon.tscn"),
-		"cost": 2
+		"cost": 10,
+		"wave": 20
 	},
 	"Fork": {
 		"scene": preload("res://enemies/Fork.tscn"),
-		"cost": 6
+		"cost": 10,
+		"wave": 15
 	},
 	"Apple": {
 		"scene": preload("res://enemies/Apple.tscn"),
-		"cost": 10
+		"cost": 5,
+		"wave": 10
 	},
 	"Banana": {
 		"scene": preload("res://enemies/Banana.tscn"),
-		"cost": 15
+		"cost": 5,
+		"wave": 15
+	},
+}
+
+var kitchen_boss_catalog = {
+	"Spork": {
+		"scene": preload("res://enemies/Spork.tscn"),
+		"cost": 1,
+		"wave": 0
+	},
+	"Sandwich": {
+		"scene": preload("res://enemies/Sandwich.tscn"),
+		"cost": 2,
+		"wave": 20
 	},
 }
 
@@ -57,39 +110,31 @@ func start_next_wave():
 	print("--- Starting Wave ", GameData.current_round, " ---")
 
 	# Calculate Budget (Formula: Wave 1 = 10, Wave 2 = 15, etc.)
-	var budget = 5 + (GameData.current_round * 5)
+	var budget = GameData.current_round * 5
 	print("Wave Budget: ", budget)
 	
 	# Bedroom
-	bedroom_enemies = generate_wave_queue(budget, bedroom_enemy_catalog)
+	rooms_finished["bedroom"] = false
+	if is_boss_round():
+		bedroom_enemies = create_boss_wave(GameData.current_round, bedroom_boss_catalog)
+	else:
+		bedroom_enemies = generate_wave_queue(budget, bedroom_enemy_catalog)
 	emit_signal("bedroom_portal_opened")
 	bedroom_timer.start(0.5)
 	
 	# Kitchen
-	if GameData.current_round >= 5:
+	if GameData.current_round > 10:
+		rooms_finished["kitchen"] = false
 		emit_signal("kitchen_portal_opened")
-		kitchen_enemies = generate_wave_queue(budget, kitchen_enemy_catalog)
+		if is_boss_round():
+			kitchen_enemies = create_boss_wave(GameData.current_round, kitchen_boss_catalog)
+		else:
+			kitchen_enemies = generate_wave_queue(budget, kitchen_enemy_catalog)
 		kitchen_timer.start(0.5)
 	
 	
 
 func generate_wave_queue(budget: int, catalog: Dictionary) -> Array:
-	if is_boss_round():
-		# Boss Wave: Just spawn one expensive enemy if possible
-		var boss_options = []
-		for key in catalog:
-			if catalog[key]["cost"] <= budget:
-				boss_options.append(key)
-		if boss_options.size() > 0:
-			var boss_name = boss_options.pick_random()
-			print("Boss Wave! Spawning single ", boss_name)
-			return [{
-				"scene": catalog[boss_name]["scene"],
-				"delay": 0.0
-			}]
-		else:
-			print("Boss Wave! But no affordable enemies. Skipping spawn.")
-			return []
 	var enemies_to_spawn = []
 	
 	# Safety loop to prevent infinite freezing if math goes wrong
@@ -101,7 +146,7 @@ func generate_wave_queue(budget: int, catalog: Dictionary) -> Array:
 		# 1. Filter: Find affordable enemies
 		var affordable_options = []
 		for key in catalog:
-			if catalog[key]["cost"] <= budget:
+			if catalog[key]["cost"] <= budget and catalog[key]["wave"] <= GameData.current_round:
 				affordable_options.append(key)
 		
 		if affordable_options.size() == 0:
@@ -170,6 +215,10 @@ func _on_kitchen_timer_timeout():
 	_spawn_enemy_on_path(kitchen_enemies, path_kitchen, kitchen_timer, "kitchen", "kitchen_portal_closed")
 	
 func _spawn_enemy_on_path(enemies: Array, path: Path2D, timer: Timer, room: String, portal_closed_signal: String):
+	var boss_chance = 0.01 * (GameData.current_round / 10)
+	if boss_chance > 0.9:
+		boss_chance = 0.9
+
 	if enemies.size() == 0:
 		timer.stop()
 		return
@@ -177,9 +226,10 @@ func _spawn_enemy_on_path(enemies: Array, path: Path2D, timer: Timer, room: Stri
 	
 	var new_enemy = enemy_data["scene"].instantiate()
 	path.add_child(new_enemy)
-	if is_boss_round():
+	if randf() < boss_chance and not new_enemy.is_boss:
 		new_enemy.set_boss_enemy()
-	
+		print("A Boss Enemy has spawned!")
+
 	if enemies.size() > 0:
 		# We still have enemies! Schedule the next one.
 		var next_delay = enemies[0]["delay"] # Peek at the next delay
@@ -201,3 +251,44 @@ func check_all_finished():
 
 func is_boss_round() -> bool:
 	return GameData.current_round % 10 == 0
+
+func create_boss_wave(round_number: int, room_boss_catalog: Dictionary) -> Array:
+	var boss_wave = []
+	var budget = round_number / 10
+	
+	var previous_bosses = []
+	for boss_name in room_boss_catalog.keys():
+		var boss_info = room_boss_catalog[boss_name]
+		if boss_info["wave"] == round_number:
+			boss_wave.append({
+				"scene": boss_info["scene"],
+				"delay": 0.0
+			})
+			print("Boss Wave: Added Boss ", boss_name)
+		else:
+			previous_bosses.append(boss_name)
+
+	while budget > 0:
+		if previous_bosses.size() == 0:
+			break
+		var affordable_bosses = []
+		for boss_name in previous_bosses:
+			var boss_info = room_boss_catalog[boss_name]
+			if boss_info["cost"] <= budget:
+				affordable_bosses.append(boss_name)
+		if affordable_bosses.size() == 0:
+			break
+		var pick_name = affordable_bosses.pick_random()
+		var boss_info = room_boss_catalog[pick_name]
+		boss_wave.append({
+			"scene": boss_info["scene"],
+			"delay": randf_range(0.8, 1.5)
+		})
+		budget -= boss_info["cost"]
+		print("Boss Wave: Added Previous Boss ", pick_name)
+		
+
+	return boss_wave
+	
+
+		

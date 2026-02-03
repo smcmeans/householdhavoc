@@ -14,9 +14,10 @@ var default_color = Color(1, 1, 1, 1)
 var is_trapped: bool = false
 var targetable: bool = true
 var cleaned: bool = false
+@export var is_boss: bool = false
 
 # The type of enemy, usefule for status effect interactions
-var category: String = ""
+@export var category: String = ""
  
 var current_health: int
 var last_position
@@ -43,6 +44,8 @@ func _ready():
 	last_position = global_position
 
 	anim_player.speed_scale = move_speed / 150.0
+
+	money_reward = (move_speed / 150) * max_health
 
 	add_to_group("enemies")
 
@@ -138,9 +141,9 @@ func set_trapped(trapped: bool):
 	visibility(not trapped)
 	$Hitbox.monitorable = not trapped
 
-func take_damage(amount: int):
+func take_damage(amount: int) -> bool:
 	if amount <= 0:
-		return
+		return false
 
 	current_health -= amount
 	
@@ -151,6 +154,8 @@ func take_damage(amount: int):
 	
 	if current_health <= 0:
 		die()
+		return true
+	return false
 
 func die():
 	print("Enemy died!")
@@ -197,7 +202,7 @@ func apply_status(effect_name: String, duration: float):
 	if effect_name == "blown_away":
 		reduce_status_duration("damp", 1.0)
 
-	if effect_name == "hanger_trapped" and not category == "clothes":
+	if effect_name == "hanger_trapped" and not category == "clothing":
 		return
 
 	if effect_name == "clean":
@@ -239,6 +244,9 @@ func update_status_visuals():
 	# Reset to normal first
 	sprite.modulate = default_color
 	sprite.scale = Vector2(1, 1)
+
+	if is_boss:
+		sprite.scale = Vector2(4, 4)
 	
 	# Apply effects based on statuses
 	if has_status("frozen"):
@@ -281,5 +289,7 @@ func set_boss_enemy():
 	sprite.scale *= 4
 	$DropShadow.scale *= 4
 	$Hitbox/CollisionShape2D.scale *= 4
-	move_speed *= 0.5
+	move_speed *= 0.75
 	anim_player.speed_scale = move_speed / 150.0
+	is_boss = true
+	money_reward = (move_speed / 150) * max_health

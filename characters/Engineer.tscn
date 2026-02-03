@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://dumudok438r2"]
+
+[ext_resource type="PackedScene" uid="uid://cchgf8nvbj6co" path="res://characters/BaseCharacter.tscn" id="1_e8b33"]
+[ext_resource type="Texture2D" uid="uid://d0aotv0s4jiix" path="res://assets/sprites/characters/Engineer .png" id="2_hvf17"]
+
+[node name="Engineer" instance=ExtResource("1_e8b33")]
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_hvf17")

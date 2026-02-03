@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bcodcwt3j6g1c"]
+
+[ext_resource type="PackedScene" uid="uid://b6wq4q6eku185" path="res://enemies/BaseEnemy.tscn" id="1_qit1v"]
+[ext_resource type="Texture2D" uid="uid://n2dl47i7fjwj" path="res://assets/sprites/enemies/shirt.png" id="2_s5wx1"]
+
+[node name="Shirt" instance=ExtResource("1_qit1v")]
+move_speed = 100.0
+max_health = 10
+category = "clothing"
+
+[node name="Sprite2D" parent="." index="0"]
+texture = ExtResource("2_s5wx1")

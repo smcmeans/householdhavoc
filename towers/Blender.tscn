@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://h1l5dfrylkk"]
+
+[ext_resource type="PackedScene" uid="uid://dyv051ckna75w" path="res://towers/BaseTower.tscn" id="1_svibg"]
+[ext_resource type="Script" uid="uid://bjafr18cc8hk1" path="res://towers/blender.gd" id="2_p524v"]
+
+[node name="Blender" instance=ExtResource("1_svibg")]
+script = ExtResource("2_p524v")
+
+[node name="ColorRect" type="ColorRect" parent="Sprite2D" index="0"]
+offset_left = -16.0
+offset_top = -32.0
+offset_right = 16.0
+color = Color(0, 0, 0, 1)

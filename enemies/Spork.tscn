@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://bmoifmutt7e5n"]
+
+[ext_resource type="PackedScene" uid="uid://b6wq4q6eku185" path="res://enemies/BaseEnemy.tscn" id="1_8f3rm"]
+[ext_resource type="Script" uid="uid://xm1m6ld4wndx" path="res://enemies/spork.gd" id="2_fxmpk"]
+
+[node name="Spork" instance=ExtResource("1_8f3rm")]
+script = ExtResource("2_fxmpk")
+move_speed = 100.0
+max_health = 50
+category = "utensil"
+
+[node name="ColorRect" type="ColorRect" parent="Sprite2D" index="0"]
+offset_left = -8.0
+offset_top = -13.0
+offset_right = 8.0
+offset_bottom = 2.0
+
+[node name="Label" type="Label" parent="Sprite2D/ColorRect" index="0"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 10
+text = "Spork"
