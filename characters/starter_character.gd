@@ -59,6 +59,7 @@ func perform_slash_attack():
 	can_attack = true
 
 func set_sprinting(is_sprinting: bool) -> void:
+	# TODO fix camera zoom when not moving
 	sprinting = is_sprinting
 	if sprinting:
 		speed = base_speed * sprint_multiplier
