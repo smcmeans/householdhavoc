@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b8f2laui5ovxu"]
 
 [ext_resource type="Script" uid="uid://bsovou6jspq47" path="res://characters/potion.gd" id="1_rqwxq"]
-[ext_resource type="Texture2D" uid="uid://rgkeoubvk1n2" path="res://assets/drop shadow.png" id="2_b00fu"]
+[ext_resource type="PackedScene" uid="uid://b5j2tgyq8ybe3" path="res://DropShadow.tscn" id="2_b00fu"]
 
 [node name="Potion" type="Node2D" unique_id=1492581850]
 script = ExtResource("1_rqwxq")
@@ -16,6 +16,4 @@ offset_right = 8.0
 offset_bottom = 7.0
 color = Color(1, 0.21176471, 1, 1)
 
-[node name="DropShadow" type="Sprite2D" parent="." unique_id=1042622883]
-position = Vector2(0, 7)
-texture = ExtResource("2_b00fu")
+[node name="DropShadow" parent="." unique_id=1374813660 instance=ExtResource("2_b00fu")]

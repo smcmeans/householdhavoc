@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dwg3wqwyrdsth"]
 
 [ext_resource type="Texture2D" uid="uid://d3tybmqmrgvh" path="res://assets/sprites/portal.png" id="1_0dvjx"]
-[ext_resource type="Texture2D" uid="uid://rgkeoubvk1n2" path="res://assets/drop shadow.png" id="2_u6lse"]
+[ext_resource type="PackedScene" uid="uid://b5j2tgyq8ybe3" path="res://DropShadow.tscn" id="2_u6lse"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_voitx"]
 atlas = ExtResource("1_0dvjx")
@@ -77,6 +77,4 @@ sprite_frames = SubResource("SpriteFrames_eub7v")
 frame = 4
 frame_progress = 0.13819829
 
-[node name="DropShadow" type="Sprite2D" parent="." unique_id=2105322974]
-y_sort_enabled = true
-texture = ExtResource("2_u6lse")
+[node name="DropShadow" parent="." unique_id=514375935 instance=ExtResource("2_u6lse")]
