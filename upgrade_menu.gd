@@ -6,6 +6,7 @@ func _ready():
 	visible = false
 
 	$BtnClose.pressed.connect(_on_close_btn_pressed)
+	$BtnSell.pressed.connect(_on_sell_btn_pressed)
 	$HBoxContainer/Path1/BtnPath1.pressed.connect(_on_btn_path_1_pressed)
 	$HBoxContainer/Path2/BtnPath2.pressed.connect(_on_btn_path_2_pressed)
 
@@ -32,6 +33,15 @@ func close_menu():
 # Connect your Close Button to this!
 func _on_close_btn_pressed():
 	close_menu()
+
+func _on_sell_btn_pressed():
+	if current_tower == null: return
+
+	# Add money to player
+	GameData.add_money(current_tower.sell_value)
+
+	# Remove tower from scene
+	current_tower.queue_free()
 
 func refresh_ui():
 	if current_tower == null: return
