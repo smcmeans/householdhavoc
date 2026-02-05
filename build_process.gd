@@ -73,6 +73,9 @@ func place_tower(grid_pos: Vector2i, pixel_pos: Vector2):
 	current_ghost_tower.process_mode = Node.PROCESS_MODE_INHERIT
 	current_ghost_tower.global_position = pixel_pos # Ensure it stays exactly where the ghost was
 	
+	# Select the tower
+	current_ghost_tower.select_tower()
+
 	current_ghost_tower = null
 	print("Tower placed at ", grid_pos)
 
