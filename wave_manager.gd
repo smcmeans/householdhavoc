@@ -1,6 +1,5 @@
 extends Node
 
-# Link your Path2D here in the Inspector!
 @export var path_bedroom: Path2D
 @export var path_kitchen: Path2D
 
