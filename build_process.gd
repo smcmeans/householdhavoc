@@ -60,23 +60,29 @@ func _process(_delta):
 
 
 		var mouse_pos = get_global_mouse_position()
+		mouse_pos.x += 8  # Adjust for cursor hotspot
+		mouse_pos.y += 8  # Adjust for cursor hotspot
 		#print("Mouse Pos: ", mouse_pos)
 		
 		# Get the Anchor Grid Coordinate
 		var tile_pos = FloorLayer.local_to_map(mouse_pos)
+		#print("Tile Pos: ", tile_pos)
 		
 		# Check Validity
 		var is_valid = can_place_tower_at(tile_pos)
 		
 		# Visual Snap
-		# We calculate pixel pos from the GRID, not the mouse, for stability.
+		# This calculated the center of the tile, we want top-left
 		var snap_position = FloorLayer.map_to_local(tile_pos)
+		snap_position.x -= 8
+		snap_position.y += 8
 		#print("Snap Pos: ", snap_position)
 
 
+
 		# VISUAL OFFSET ADJUSTMENT
-		snap_position.x += 8 
-		snap_position.y += 24 
+		#snap_position.x += 8 
+		#snap_position.y += 24 
 		
 		current_ghost_tower.global_position = snap_position
 
