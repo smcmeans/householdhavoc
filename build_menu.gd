@@ -17,7 +17,6 @@ func _ready():
 	visible = false
 	
 	# Connect the button click
-	# (Adjust path if your button is deeper in the tree)
 	$GridContainer/BtnWashingMachine.pressed.connect(_on_washer_clicked)
 	$GridContainer/BtnDryer.pressed.connect(_on_dryer_clicked)
 	$GridContainer/BtnCloset.pressed.connect(_on_closet_clicked)
