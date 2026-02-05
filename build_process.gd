@@ -1,5 +1,6 @@
 extends Node2D
 
+# TODO Add a way to remove towers from occupied_tiles when sold
 
 var current_ghost_tower: Node2D = null
 var current_tower_cost: int = 0
@@ -51,6 +52,13 @@ func _on_build_requested(tower_scene, cost):
 
 func _process(_delta):
 	if current_ghost_tower != null:
+		if Input.is_action_just_pressed("ui_cancel"):
+			# Cancel placement
+			current_ghost_tower.queue_free()
+			current_ghost_tower = null
+			return
+
+
 		var mouse_pos = get_global_mouse_position()
 		#print("Mouse Pos: ", mouse_pos)
 		
