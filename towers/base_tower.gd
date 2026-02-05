@@ -105,7 +105,7 @@ func start_reload():
 # --- VIRTUAL FUNCTION (To be overridden) ---
 # This function does nothing here. The Washing Machine will "overwrite" this.
 func fire():
-	pass 
+	pass
 
 # --- Signal Handling ---
 func _on_detection_range_area_entered(area):
@@ -193,12 +193,23 @@ func _update_stats(path_id, tier):
 	pass
 
 
+# func _on_click_area_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+# 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+# 		select_tower()
+# 	elif event is InputEventMouseButton:
+# 		print(str(event.pressed) + " " + str(event.button_index))
+
 func _on_click_area_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	# TODO: Connect this to select keybind
-	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT:
+	# We must check 'event.pressed' to ensure we only fire on the CLICK, not the release.
+	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		select_tower()
-	elif event is InputEventMouseButton:
-		print(str(event.pressed) + " " + str(event.button_index))
+        
+        # Optional: Mark the input as handled so it doesn't click through to the floor
+		get_viewport().set_input_as_handled()
+
+	elif event is InputEventMouseButton and event.pressed:
+		# Debugging other clicks (Right click, etc)
+		print("Button: " + str(event.button_index) + " Pressed: " + str(event.pressed))
 
 func select_tower():
 	is_selected = true
@@ -208,7 +219,7 @@ func select_tower():
 	# Open the Upgrade Menu
 	var upgrade_menu = get_tree().root.get_node("Main/UI/UpgradeMenu")
 	if upgrade_menu:
-		upgrade_menu.open_menu(self)
+		upgrade_menu.open_menu(self )
 
 # Create a function to "Deselect" (Called later by the UI)
 func deselect_tower():
