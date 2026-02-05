@@ -10,10 +10,26 @@ var tower_footprint = [Vector2i(0,0), Vector2i(1,0), Vector2i(0,1), Vector2i(1, 
 
 @export var FloorLayer: TileMapLayer
 
-@export var BuildMenu: CanvasLayer
+var BuildMenu: CanvasLayer
+
+@export var WaveManager: Node
+
+@export var BedroomPortal: Sprite2D
+@export var KitchenPortal: Sprite2D
 
 func _ready():
-	BuildMenu.request_tower_placement.connect(_on_build_requested)
+
+	var build_menu = get_tree().get_first_node_in_group("build_menu")
+
+	build_menu.request_tower_placement.connect(_on_build_requested)
+
+	WaveManager.bedroom_portal_opened.connect(_on_bedroom_portal_opened)
+	WaveManager.bedroom_portal_closed.connect(_on_bedroom_portal_closed)
+	WaveManager.kitchen_portal_opened.connect(_on_kitchen_portal_opened)
+	WaveManager.kitchen_portal_closed.connect(_on_kitchen_portal_closed)
+
+	BedroomPortal.visible = false
+	KitchenPortal.visible = false
 
 func _on_build_requested(tower_scene, cost):
 	
@@ -103,3 +119,23 @@ func can_place_tower_at(anchor_grid_pos: Vector2i) -> bool:
 			return false
 				
 	return true
+
+func _on_bedroom_portal_opened():
+	BedroomPortal.visible = true
+	var anim = BedroomPortal.get_parent().get_node("AnimationPlayer")
+	anim.play("portal_swoosh")
+
+func _on_bedroom_portal_closed():
+	BedroomPortal.visible = false
+	var anim = BedroomPortal.get_parent().get_node("AnimationPlayer")
+	anim.play("RESET")
+
+func _on_kitchen_portal_opened():
+	KitchenPortal.visible = true
+	var anim = KitchenPortal.get_parent().get_node("AnimationPlayer")
+	anim.play("portal_swoosh")
+
+func _on_kitchen_portal_closed():
+	KitchenPortal.visible = false
+	var anim = KitchenPortal.get_parent().get_node("AnimationPlayer")
+	anim.play("RESET")
