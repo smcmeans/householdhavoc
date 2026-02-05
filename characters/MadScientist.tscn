@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://dqqkxxd3c2jfg"]
+[gd_scene format=3 uid="uid://dqqkxxd3c2jfg"]
 
 [ext_resource type="PackedScene" uid="uid://cchgf8nvbj6co" path="res://characters/BaseCharacter.tscn" id="1_ldbdm"]
+[ext_resource type="Script" uid="uid://dpk8mr3cyroo3" path="res://characters/mad_scientist.gd" id="2_tx378"]
 [ext_resource type="Texture2D" uid="uid://uhtwuhq8io6g" path="res://assets/sprites/characters/mad scientist .png" id="2_yv1ku"]
+[ext_resource type="PackedScene" uid="uid://dwg3wqwyrdsth" path="res://characters/MadScientistPortal.tscn" id="3_tx378"]
 
-[node name="MadScientist" instance=ExtResource("1_ldbdm")]
+[node name="MadScientist" unique_id=1353172780 instance=ExtResource("1_ldbdm")]
+script = ExtResource("2_tx378")
+portal_scene = ExtResource("3_tx378")
 
 [node name="Sprite2D" parent="." index="1"]
 texture = ExtResource("2_yv1ku")

@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://dwg3wqwyrdsth"]
+
+[ext_resource type="Texture2D" uid="uid://d3tybmqmrgvh" path="res://assets/sprites/portal.png" id="1_0dvjx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u6lse"]
+atlas = ExtResource("1_0dvjx")
+region = Rect2(0, 0, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_voitx"]
+atlas = ExtResource("1_0dvjx")
+region = Rect2(24, 0, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u2hlt"]
+atlas = ExtResource("1_0dvjx")
+region = Rect2(48, 0, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kbhku"]
+atlas = ExtResource("1_0dvjx")
+region = Rect2(72, 0, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1j61p"]
+atlas = ExtResource("1_0dvjx")
+region = Rect2(96, 0, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pl4vh"]
+atlas = ExtResource("1_0dvjx")
+region = Rect2(120, 0, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_abet0"]
+atlas = ExtResource("1_0dvjx")
+region = Rect2(144, 0, 24, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pya6i"]
+atlas = ExtResource("1_0dvjx")
+region = Rect2(168, 0, 24, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xotg8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u6lse")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_voitx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u2hlt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kbhku")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1j61p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pl4vh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_abet0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pya6i")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
+
+[node name="MadScientistPortal" type="AnimatedSprite2D" unique_id=1181213572]
+position = Vector2(0, -16)
+sprite_frames = SubResource("SpriteFrames_xotg8")
+frame_progress = 0.6068768
