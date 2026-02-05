@@ -1,9 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://bk305k0bu0i1c"]
+[gd_scene format=3 uid="uid://bk305k0bu0i1c"]
 
-[ext_resource type="Script" uid="uid://cdg4vopbfd2a0" path="res://upgrade_menu.gd" id="1_ntgkq"]
+[ext_resource type="Script" path="res://upgrade_menu.gd" id="1_ntgkq"]
 [ext_resource type="Theme" uid="uid://du4qbm61utrmh" path="res://main_theme.tres" id="2_s63oj"]
 
-[node name="UpgradeMenu" type="Control"]
+[node name="UpgradeMenu" type="Control" unique_id=384679121]
 layout_mode = 3
 anchors_preset = 8
 anchor_left = 0.5
@@ -14,23 +14,23 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_ntgkq")
 
-[node name="Background" type="Panel" parent="."]
-layout_mode = 0
-offset_left = -190.0
-offset_top = -149.0
-offset_right = 225.0
-offset_bottom = 162.0
+[node name="Background" type="Panel" parent="." unique_id=1791099045]
+layout_mode = 1
+offset_left = -329.0
+offset_top = -225.0
+offset_right = 373.0
+offset_bottom = 212.0
 
-[node name="BtnClose" type="Button" parent="."]
+[node name="BtnClose" type="Button" parent="." unique_id=415230948]
 layout_mode = 0
-offset_left = -108.0
-offset_top = -94.0
-offset_right = -88.0
-offset_bottom = -69.0
+offset_left = -284.0
+offset_top = -193.0
+offset_right = -248.0
+offset_bottom = -153.0
 theme = ExtResource("2_s63oj")
 text = "X"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1915949298]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -45,42 +45,42 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 50
 
-[node name="Path1" type="VBoxContainer" parent="HBoxContainer"]
+[node name="Path1" type="VBoxContainer" parent="HBoxContainer" unique_id=1304721550]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Path1Name" type="Label" parent="HBoxContainer/Path1"]
+[node name="Path1Name" type="Label" parent="HBoxContainer/Path1" unique_id=1413224887]
 layout_mode = 2
 theme = ExtResource("2_s63oj")
 
-[node name="Path1Cost" type="Label" parent="HBoxContainer/Path1"]
+[node name="Path1Cost" type="Label" parent="HBoxContainer/Path1" unique_id=1802634838]
 layout_mode = 2
 theme = ExtResource("2_s63oj")
 
-[node name="Path1Description" type="Label" parent="HBoxContainer/Path1"]
+[node name="Path1Description" type="Label" parent="HBoxContainer/Path1" unique_id=757137539]
 layout_mode = 2
 theme = ExtResource("2_s63oj")
 
-[node name="BtnPath1" type="Button" parent="HBoxContainer/Path1"]
+[node name="BtnPath1" type="Button" parent="HBoxContainer/Path1" unique_id=1854307988]
 layout_mode = 2
 theme = ExtResource("2_s63oj")
 
-[node name="Path2" type="VBoxContainer" parent="HBoxContainer"]
+[node name="Path2" type="VBoxContainer" parent="HBoxContainer" unique_id=1464732652]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Path2Name" type="Label" parent="HBoxContainer/Path2"]
+[node name="Path2Name" type="Label" parent="HBoxContainer/Path2" unique_id=343228280]
 layout_mode = 2
 theme = ExtResource("2_s63oj")
 
-[node name="Path2Cost" type="Label" parent="HBoxContainer/Path2"]
+[node name="Path2Cost" type="Label" parent="HBoxContainer/Path2" unique_id=641616530]
 layout_mode = 2
 theme = ExtResource("2_s63oj")
 
-[node name="Path2Description" type="Label" parent="HBoxContainer/Path2"]
+[node name="Path2Description" type="Label" parent="HBoxContainer/Path2" unique_id=1689470948]
 layout_mode = 2
 theme = ExtResource("2_s63oj")
 
-[node name="BtnPath2" type="Button" parent="HBoxContainer/Path2"]
+[node name="BtnPath2" type="Button" parent="HBoxContainer/Path2" unique_id=982872554]
 layout_mode = 2
 theme = ExtResource("2_s63oj")

@@ -1,64 +1,64 @@
-[gd_scene load_steps=3 format=3 uid="uid://dqe1c7wjimx3v"]
+[gd_scene format=3 uid="uid://dqe1c7wjimx3v"]
 
 [ext_resource type="Script" uid="uid://b6a6k4ju1i5ve" path="res://build_menu.gd" id="1_0xsru"]
 [ext_resource type="Theme" uid="uid://du4qbm61utrmh" path="res://main_theme.tres" id="2_sbxe8"]
 
-[node name="BuildMenu" type="CanvasLayer"]
+[node name="BuildMenu" type="CanvasLayer" unique_id=11078319]
 script = ExtResource("1_0xsru")
 
-[node name="GridContainer" type="GridContainer" parent="."]
+[node name="GridContainer" type="GridContainer" parent="." unique_id=29758176]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -213.0
-offset_top = -20.0
-offset_right = 213.0
-offset_bottom = 20.0
+offset_left = -247.0
+offset_top = -41.5
+offset_right = 247.0
+offset_bottom = 41.5
 grow_horizontal = 2
 grow_vertical = 2
 columns = 3
 
-[node name="BtnWashingMachine" type="Button" parent="GridContainer"]
+[node name="BtnWashingMachine" type="Button" parent="GridContainer" unique_id=602037701]
 layout_mode = 2
 theme = ExtResource("2_sbxe8")
 text = "Washer ($100)"
 
-[node name="BtnDryer" type="Button" parent="GridContainer"]
+[node name="BtnDryer" type="Button" parent="GridContainer" unique_id=1763635587]
 layout_mode = 2
 theme = ExtResource("2_sbxe8")
 text = "Dryer ($200)"
 
-[node name="BtnCloset" type="Button" parent="GridContainer"]
+[node name="BtnCloset" type="Button" parent="GridContainer" unique_id=436557531]
 layout_mode = 2
 theme = ExtResource("2_sbxe8")
 text = "Closet ($100)"
 
-[node name="BtnSink" type="Button" parent="GridContainer"]
+[node name="BtnSink" type="Button" parent="GridContainer" unique_id=68873294]
 layout_mode = 2
 theme = ExtResource("2_sbxe8")
 text = "Sink ($150)"
 
-[node name="BtnFan" type="Button" parent="GridContainer"]
+[node name="BtnFan" type="Button" parent="GridContainer" unique_id=1523215390]
 layout_mode = 2
 theme = ExtResource("2_sbxe8")
 text = "Fan ($100)"
 
-[node name="BtnFreezer" type="Button" parent="GridContainer"]
+[node name="BtnFreezer" type="Button" parent="GridContainer" unique_id=1716677061]
 layout_mode = 2
 theme = ExtResource("2_sbxe8")
 text = "Freezer ($300)"
 
-[node name="BtnVinylPlayer" type="Button" parent="GridContainer"]
+[node name="BtnVinylPlayer" type="Button" parent="GridContainer" unique_id=1487595568]
 layout_mode = 2
 theme = ExtResource("2_sbxe8")
 text = "Vinyl Player ($200)"
 
-[node name="Button3" type="Button" parent="GridContainer"]
+[node name="Button3" type="Button" parent="GridContainer" unique_id=878404480]
 layout_mode = 2
 theme = ExtResource("2_sbxe8")
 
-[node name="Button4" type="Button" parent="GridContainer"]
+[node name="Button4" type="Button" parent="GridContainer" unique_id=1147384396]
 layout_mode = 2
 theme = ExtResource("2_sbxe8")
