@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bk305k0bu0i1c"]
 
-[ext_resource type="Script" path="res://upgrade_menu.gd" id="1_ntgkq"]
+[ext_resource type="Script" uid="uid://cdg4vopbfd2a0" path="res://upgrade_menu.gd" id="1_ntgkq"]
 [ext_resource type="Theme" uid="uid://du4qbm61utrmh" path="res://main_theme.tres" id="2_s63oj"]
 
 [node name="UpgradeMenu" type="Control" unique_id=384679121]
@@ -21,12 +21,20 @@ offset_top = -225.0
 offset_right = 373.0
 offset_bottom = 212.0
 
+[node name="BtnSell" type="Button" parent="." unique_id=1553890895]
+layout_mode = 0
+offset_left = -253.0
+offset_top = 147.0
+offset_right = -218.0
+offset_bottom = 178.0
+text = "Sell"
+
 [node name="BtnClose" type="Button" parent="." unique_id=415230948]
 layout_mode = 0
-offset_left = -284.0
-offset_top = -193.0
-offset_right = -248.0
-offset_bottom = -153.0
+offset_left = -289.0
+offset_top = -203.0
+offset_right = -253.0
+offset_bottom = -163.0
 theme = ExtResource("2_s63oj")
 text = "X"
 
