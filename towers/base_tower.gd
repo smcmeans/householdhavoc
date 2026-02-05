@@ -18,6 +18,7 @@ var path_2_tier: int = 0
 var path_1_upgrades: Dictionary = {}
 var path_2_upgrades: Dictionary = {}
 var is_selected: bool = false
+var sell_value: int = 0
 
 # --- Nodes ---
 @onready var detection_shape = $DetectionRange/CollisionShape2D
@@ -172,6 +173,9 @@ func apply_upgrade(path_id: int):
 	# 2. Check Money
 	if GameData.money >= data["cost"]:
 		GameData.remove_money(data["cost"])
+
+		# Add sell value (50% of cost)
+		sell_value += int(data["cost"] * 0.5)
 		
 		# 3. Update the Tier Counter
 		if path_id == 1:
