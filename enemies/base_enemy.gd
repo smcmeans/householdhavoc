@@ -192,7 +192,8 @@ func apply_status(effect_name: String, duration: float):
 		if has_status("burning"):
 			_apply_status_helper("dry", 5.0)
 			# TODO: Add steam blast
-			take_damage(int(active_statuses["burning"]))
+			# take_damage(int(active_statuses["burning"]))
+			# This is too powerful, just remove burning for now
 			remove_status("burning")
 			return
 		if has_status("dry"):
