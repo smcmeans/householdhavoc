@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c0tjj4guavhdb" path="res://main.gd" id="1_fos0i"]
 [ext_resource type="PackedScene" uid="uid://dx8bgqprlithj" path="res://characters/StarterCharacter.tscn" id="2_j4qnp"]
+[ext_resource type="Script" uid="uid://kvoxgp0icv1q" path="res://viewport_stretching.gd" id="3_3b0ty"]
 [ext_resource type="Texture2D" uid="uid://d3tybmqmrgvh" path="res://assets/sprites/portal.png" id="3_c2ibq"]
 [ext_resource type="Script" uid="uid://cci1c45y162ii" path="res://build_process.gd" id="3_devvj"]
 [ext_resource type="Theme" uid="uid://du4qbm61utrmh" path="res://main_theme.tres" id="4_3dxm6"]
@@ -238,6 +239,7 @@ grow_vertical = 2
 stretch = true
 stretch_shrink = 3
 mouse_target = true
+script = ExtResource("3_3b0ty")
 
 [node name="GameViewport" type="SubViewport" parent="GameCanvas/GameContainer" unique_id=1246508485]
 handle_input_locally = false
