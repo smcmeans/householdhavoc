@@ -56,7 +56,7 @@ func fire():
 		water.rotation = final_angle # Rotate sprite too
 		
 		# Add to scene
-		get_tree().root.add_child(water)
+		get_parent().add_child(water)
 
 func _update_stats(path_id, tier):
 	if path_id == 1:

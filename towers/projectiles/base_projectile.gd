@@ -34,7 +34,7 @@ func _physics_process(delta):
 	var result = get_world_2d().direct_space_state.intersect_ray(query)
 	
 	if result:
-		# We hit something mid-step!
+		# We hit something mid-step
 		global_position = result["position"] # Snap to impact point
 		
 		# Manually trigger the hit logic since we stopped early

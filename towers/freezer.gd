@@ -63,7 +63,7 @@ func _fire_single():
 	var ice_cube = create_projectile() 
 	ice_cube.freeze_duration = freeze_duration
 	ice_cube.direction = Vector2.RIGHT.rotated(pivot.rotation)
-	get_tree().root.add_child(ice_cube)
+	get_parent().add_child(ice_cube)
 
 func _update_stats(path_id, tier):
 	if path_id == 1:

@@ -52,8 +52,8 @@ func fire():
 	hanger.multiplicative_damage = multiplicative_damage
 	hanger.hanger_trapped_duration = hanger_trapped_duration
 	
-	# D. Add to World (CRITICAL STEP)
-	get_tree().root.add_child(hanger)
+	# Add to World
+	get_parent().add_child(hanger)
 	start_recoil_shake()
 
 func open_closet():
