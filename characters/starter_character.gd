@@ -5,6 +5,7 @@ extends Character
 @export var sprint_multiplier: float = 1.5
 
 @onready var slash_sprite = $AtackPivot/SlashSprite
+@onready var camera = $Camera2D
 
 var can_attack: bool = true
 var sprinting: bool = false
@@ -61,5 +62,9 @@ func set_sprinting(is_sprinting: bool) -> void:
 	sprinting = is_sprinting
 	if sprinting:
 		speed = base_speed * sprint_multiplier
+		var tween = get_parent().create_tween()
+		tween.tween_property(camera, "zoom", Vector2(0.95, 0.95), 0.2)
 	else:
 		speed = base_speed
+		var tween = get_parent().create_tween()
+		tween.tween_property(camera, "zoom", Vector2(1, 1), 0.2)
