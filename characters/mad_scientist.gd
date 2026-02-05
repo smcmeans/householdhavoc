@@ -85,7 +85,7 @@ func open_portal(target_position: Vector2):
 		portals_in_scene[int(current_portal_index)] = portal
 	current_portal_index = not current_portal_index
 
-	portal.play("default")
+	portal.get_child(0).play("default")
 
 	portal_timeout()
 	get_parent().add_child(portal)
