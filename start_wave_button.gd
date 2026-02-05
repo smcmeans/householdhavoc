@@ -1,18 +1,26 @@
 extends Button
 
-@onready var wave_manager = get_tree().current_scene.get_node("WaveManager")
+@onready var wave_manager: Node
+#get_tree().current_scene.get_node("WaveManager")
 
 func _ready():
-	# CONNECT THE SIGNAL
-	# Translation: "When wave_manager shouts 'enable_wave_button', run my function '_on_wave_ended'"
+
+	# Find the wave manager
+	for node in get_tree().get_first_node_in_group("map").get_children():
+		if node.is_in_group("wave_manager"):
+			wave_manager = node
+			break
+
 	wave_manager.enable_wave_button.connect(_on_wave_ended)
+
+
 
 func _pressed():
 	
 	GameData.current_round += 1
 	$"../RoundLabel".update_round()
 	# Find the WaveManager and tell it to go
-	$"../../WaveManager".start_next_wave() 
+	wave_manager.start_next_wave() 
 	# Disable button so we don't spam it
 	disabled = true
 
