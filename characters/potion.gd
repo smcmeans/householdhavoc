@@ -9,6 +9,7 @@ var target_position: Vector2
 var start_position: Vector2
 var total_time: float = 0.0
 var current_time: float = 0.0
+var splash_radius: float = 10.0
 
 @onready var drop_shadow = $DropShadow
 
@@ -47,6 +48,9 @@ func _physics_process(delta):
 	drop_shadow.global_position = ground_position
 
 func land():
+
+	# TODO Add potion plash effect/damage here
+
 	# Snap to exact target to prevent floating point errors
 	global_position = target_position 
 	potion_landed.emit(target_position)

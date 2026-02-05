@@ -3,7 +3,8 @@ extends Character
 @export var portal_scene: PackedScene
 @export var potion_scene: PackedScene
 
-@export var throw_range: float = 250.0
+@export var throw_range: float = 150.0
+@export var potion_splash_radius: float = 10.0
 
 var portal_positions: Array[Vector2]
 var current_portal_index: bool = false
@@ -23,19 +24,26 @@ func _physics_process(delta):
 
 
 		var mouse_pos = get_global_mouse_position()
+		mouse_pos.y += potion_splash_radius / 2  # Adjust for splash radius
 		var direction = global_position.direction_to(mouse_pos)
 		var distance = global_position.distance_to(mouse_pos)
-
 		
 		if distance > throw_range:
 			distance = throw_range
 			mouse_pos = global_position + direction * throw_range
 
+		# Show splash radius at mouse position
+		$PotionSplashIndicator.global_position = mouse_pos
+
+		# Check for valid placement
+		var valid_placement = is_valid(mouse_pos)
+		set_range_indicators_valid(valid_placement)
+
 		# Play throw animation
 		#$AnimationPlayer.play("throw_potion")
 		#await $AnimationPlayer.animation_finished
 
-		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT):
+		if Input.is_mouse_button_pressed(MOUSE_BUTTON_LEFT) and valid_placement:
 			get_parent().add_child(create_potion(mouse_pos))
 			throwing = false
 			set_range_visible(false)
@@ -53,14 +61,20 @@ func _physics_process(delta):
 	use_portal()
 	super._physics_process(delta)
 
-func set_range_visible(is_visible):
+func set_range_visible(is_visible: bool):
 	$RangeIndicator.update_range_visuals(throw_range, is_visible)
+	$PotionSplashIndicator.update_range_visuals(potion_splash_radius, is_visible)
 
+func set_range_indicators_valid(is_valid: bool):
+	var color = Color(1, 1, 1, 0.5) if is_valid else Color(1, 0, 0, 0.5)
+	$PotionSplashIndicator.modulate = color
+	$RangeIndicator.modulate = color
 
 func create_potion(target_position: Vector2) -> Node2D:
 	var potion = potion_scene.instantiate()
 	potion.global_position = global_position
 	potion.target_position = target_position
+	potion.splash_radius = potion_splash_radius
 	potion.potion_landed.connect(open_portal)
 	return potion
 
@@ -90,19 +104,35 @@ func open_portal(target_position: Vector2):
 	portal_timeout()
 	get_parent().add_child(portal)
 
-# Need to find a way to make this better for multiplayer
+# TODO Need to find a way to make this better for multiplayer
 func use_portal():
 	if portal_positions.size() < 2 || not can_use_portal:
 		return # Not enough portals placed
 
-	var distance = 10
+	var distance_x = 12
+	var distance_y = 4
 
 	for i in range(2):
-		if abs(portal_positions[i].x - global_position.x) < distance and abs(portal_positions[i].y - global_position.y) < distance:
+		if abs(portal_positions[i].x - global_position.x) < distance_x and abs(portal_positions[i].y - global_position.y) < distance_y:
 			global_position = portal_positions[(i + 1) % 2]
 			# Add cooldown to prevent immediate re-teleporting
 			portal_timeout()
 			break
+
+func is_valid(mouse_pos: Vector2) -> bool:
+	# Needs to check the type of the tile that the mouse is over
+
+	var floor_layer = get_tree().get_first_node_in_group("floor_layer") as TileMapLayer
+
+	var tile_pos = floor_layer.local_to_map(mouse_pos)
+
+	var tile_data = floor_layer.get_cell_tile_data(tile_pos)
+
+	# Check if tile data exists and is not a wall
+	if not tile_data or tile_data.get_collision_polygons_count(0):
+		return false
+
+	return true
 
 func portal_timeout():
 	can_use_portal = false

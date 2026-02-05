@@ -11,11 +11,15 @@
 script = ExtResource("2_tx378")
 portal_scene = ExtResource("3_tx378")
 potion_scene = ExtResource("4_032md")
-throw_range = 250.0
+throw_range = 150.0
+potion_splash_radius = 10.0
 
 [node name="Sprite2D" parent="." index="1"]
 texture = ExtResource("2_yv1ku")
 
-[node name="RangeIndicator" type="Node2D" parent="." index="5" unique_id=741312135]
+[node name="PotionSplashIndicator" type="Node2D" parent="." index="5" unique_id=658064910]
+script = ExtResource("5_d5wt3")
+
+[node name="RangeIndicator" type="Node2D" parent="." index="6" unique_id=741312135]
 z_index = -1
 script = ExtResource("5_d5wt3")
