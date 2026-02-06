@@ -47,6 +47,9 @@ func _physics_process(delta):
 	global_position = ground_position - Vector2(0, height_offset)
 	drop_shadow.global_position = ground_position
 
+	# Rotate the potion for effect
+	$Sprite2D.rotation += 5.0 * delta
+
 func land():
 
 	# TODO Add potion plash effect/damage here
