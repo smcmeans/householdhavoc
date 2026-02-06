@@ -71,7 +71,7 @@ func apply_effect(enemy):
 		enemy.take_damage(damage)
 
 
-func _on_wall_hit(body):
+func _on_wall_hit(_body):
 	# Check if the body is actually a wall/environment
 	# (Layer 1 is bit 0, so value 1)
 	queue_free()

@@ -61,12 +61,12 @@ func _physics_process(delta):
 	use_portal()
 	super._physics_process(delta)
 
-func set_range_visible(is_visible: bool):
-	$RangeIndicator.update_range_visuals(throw_range, is_visible)
-	$PotionSplashIndicator.update_range_visuals(potion_splash_radius, is_visible)
+func set_range_visible(visibility: bool):
+	$RangeIndicator.update_range_visuals(throw_range, visibility)
+	$PotionSplashIndicator.update_range_visuals(potion_splash_radius, visibility)
 
-func set_range_indicators_valid(is_valid: bool):
-	var color = Color(1, 1, 1, 0.5) if is_valid else Color(1, 0, 0, 0.5)
+func set_range_indicators_valid(validity: bool):
+	var color = Color(1, 1, 1, 0.5) if validity else Color(1, 0, 0, 0.5)
 	$PotionSplashIndicator.modulate = color
 	$RangeIndicator.modulate = color
 

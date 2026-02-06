@@ -8,7 +8,7 @@ class_name Character
 
 var animation_playing: bool = false
 
-func _physics_process(delta):
+func _physics_process(_delta):
 
 	# Get input direction (WASD or Arrows)
 	var direction = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")

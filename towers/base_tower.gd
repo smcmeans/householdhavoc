@@ -37,7 +37,7 @@ func _ready():
 	# 3. Connect Signals
 	# Note: We connect these to the PARENT script functions defined below
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	update_target()
 	
 	
@@ -134,8 +134,8 @@ func _draw():
 	pass
 
 # Function to toggle this on/off from other scripts
-func set_range_visible(is_visible: bool):
-	$RangeIndicator.update_range_visuals(attack_range, is_visible)
+func set_range_visible(visibility: bool):
+	$RangeIndicator.update_range_visuals(attack_range, visibility)
 	queue_redraw() # Tells Godot "The visuals changed, run _draw() again!"
 
 func _on_click_area_mouse_entered():
@@ -193,7 +193,7 @@ func apply_upgrade(path_id: int):
 		print("Not enough cash!")
 
 # Placeholder function that children scripts (Dryer/Washer) will overwrite
-func _update_stats(path_id, tier):
+func _update_stats(_path_id, _tier):
 	pass
 
 
@@ -203,7 +203,7 @@ func _update_stats(path_id, tier):
 # 	elif event is InputEventMouseButton:
 # 		print(str(event.pressed) + " " + str(event.button_index))
 
-func _on_click_area_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+func _on_click_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	# We must check 'event.pressed' to ensure we only fire on the CLICK, not the release.
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		select_tower()

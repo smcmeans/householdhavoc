@@ -80,6 +80,7 @@ func generate_wave_queue(budget: int, catalog: Dictionary) -> Array:
 	return enemies_to_spawn
 	
 func _spawn_enemy_on_path(enemies: Array, path: Path2D, timer: Timer, room: String, portal_closed_signal: String):
+	@warning_ignore("integer_division")
 	var boss_chance = 0.01 * (GameData.current_round / 10)
 	if boss_chance > 0.9:
 		boss_chance = 0.9
@@ -119,6 +120,7 @@ func is_boss_round() -> bool:
 
 func create_boss_wave(round_number: int, room_boss_catalog: Dictionary) -> Array:
 	var boss_wave = []
+	@warning_ignore("integer_division")
 	var budget = round_number / 10
 	
 	var previous_bosses = []
@@ -144,12 +146,12 @@ func create_boss_wave(round_number: int, room_boss_catalog: Dictionary) -> Array
 		if affordable_bosses.size() == 0:
 			break
 		var pick_name = affordable_bosses.pick_random()
-		var boss_info = room_boss_catalog[pick_name]
+		var boss = room_boss_catalog[pick_name]
 		boss_wave.append({
-			"scene": boss_info["scene"],
+			"scene": boss["scene"],
 			"delay": randf_range(0.8, 1.5)
 		})
-		budget -= boss_info["cost"]
+		budget -= boss["cost"]
 		print("Boss Wave: Added Previous Boss ", pick_name)
 		
 

@@ -26,6 +26,7 @@ func remove_money(amount: int) -> bool:
         return false # Purchase failed
 
 func round_complete():
+    @warning_ignore("integer_division")
     add_money(100 * ((current_round / 10) + 1))
 
 func remove_life(amount: int):

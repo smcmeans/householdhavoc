@@ -5,6 +5,7 @@ extends Enemy
 
 func die():
 	# Play death animation or effects here
+	@warning_ignore("integer_division")
 	for i in range(GameData.current_round / 10):
 		var utensil_instance
 		if i % 2 == 0:
