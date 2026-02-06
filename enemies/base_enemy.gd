@@ -45,13 +45,13 @@ func _ready():
 
 	anim_player.speed_scale = move_speed / 150.0
 
-	money_reward = (move_speed / 150) * max_health
+	money_reward = int((move_speed / 150) * max_health)
 
 	add_to_group("enemies")
 
 	
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if is_trapped:
 		# TODO: Add shivering animation or effect
 		return
@@ -160,6 +160,7 @@ func take_damage(amount: int) -> bool:
 func die():
 	print("Enemy died!")
 	if cleaned:
+		@warning_ignore("narrowing_conversion")
 		money_reward *= 1.5
 	GameData.add_money(money_reward)
 	queue_free()
@@ -294,4 +295,4 @@ func set_boss_enemy():
 	move_speed *= 0.75
 	anim_player.speed_scale = move_speed / 150.0
 	is_boss = true
-	money_reward = (move_speed / 150) * max_health
+	money_reward = int((move_speed / 150) * max_health)
