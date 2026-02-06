@@ -1,7 +1,7 @@
 extends Node2D
 
 
-# @export var WaveManager: Node
+# @export var wave_manager: Node
 
 # @export var BedroomPortal: Sprite2D
 # @export var KitchenPortal: Sprite2D
@@ -9,10 +9,10 @@ extends Node2D
 
 # # Link the signal from the menu
 # func _ready():
-# 	WaveManager.bedroom_portal_opened.connect(_on_bedroom_portal_opened)
-# 	WaveManager.bedroom_portal_closed.connect(_on_bedroom_portal_closed)
-# 	WaveManager.kitchen_portal_opened.connect(_on_kitchen_portal_opened)
-# 	WaveManager.kitchen_portal_closed.connect(_on_kitchen_portal_closed)
+# 	wave_manager.bedroom_portal_opened.connect(_on_bedroom_portal_opened)
+# 	wave_manager.bedroom_portal_closed.connect(_on_bedroom_portal_closed)
+# 	wave_manager.kitchen_portal_opened.connect(_on_kitchen_portal_opened)
+# 	wave_manager.kitchen_portal_closed.connect(_on_kitchen_portal_closed)
 
 # 	BedroomPortal.visible = false
 # 	KitchenPortal.visible = false
