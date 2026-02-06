@@ -232,8 +232,7 @@ tile_map_data = PackedByteArray("AAAFAO//AAAGAAMAAAAGAO//AAAGAAMAAAAFAO7/AAABAAI
 tile_set = SubResource("TileSet_40n85")
 
 [node name="ObjectLayer" type="Node2D" parent="." unique_id=846396939]
-
-[node name="MadScientist" parent="ObjectLayer" unique_id=1353172780 instance=ExtResource("12_lqldo")]
+y_sort_enabled = true
 
 [node name="BedroomPath" type="Path2D" parent="ObjectLayer" unique_id=557235921]
 position = Vector2(8, 8)
@@ -268,3 +267,6 @@ position = Vector2(0, 16)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ObjectLayer/KitchenPath" unique_id=1756129916]
 libraries/ = SubResource("AnimationLibrary_kjvhd")
+
+[node name="MadScientist" parent="ObjectLayer" unique_id=1353172780 instance=ExtResource("12_lqldo")]
+y_sort_enabled = true
