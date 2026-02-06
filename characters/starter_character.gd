@@ -7,15 +7,32 @@ extends Character
 @onready var slash_sprite = $AtackPivot/SlashSprite
 @onready var camera = $Camera2D
 
+var normal_zoom: Vector2 = Vector2(1, 1)
+var sprint_zoom: Vector2 = Vector2(0.95, 0.95)
+var zoom_duration: float = 0.2
+
 var can_attack: bool = true
 var sprinting: bool = false
 var base_speed: float
+var zoomed_out: bool = false
 
 func _ready():
 	slash_sprite.visible = false
 	base_speed = speed
 
 func _physics_process(delta):
+
+	if sprinting:
+		if anim_player.current_animation == "walk":
+			var tween = get_parent().create_tween()
+			tween.tween_property(camera, "zoom", sprint_zoom, zoom_duration)
+			zoomed_out = true
+		else:
+			var tween = get_parent().create_tween()
+			tween.tween_property(camera, "zoom", normal_zoom, zoom_duration)
+			zoomed_out = false
+
+
 	if Input.is_action_just_pressed("secondary_ability"):
 		set_sprinting(true)
 
@@ -46,7 +63,7 @@ func perform_slash_attack():
 		# Verify it's a valid enemy
 		if is_instance_valid(enemy) and enemy.has_method("take_damage"):
 			enemy.take_damage(attack_damage)
-			 # Optional: Add knockback here!
+			
 	
 	# Play animation
 	slash_sprite.visible = true
@@ -63,9 +80,8 @@ func set_sprinting(is_sprinting: bool) -> void:
 	sprinting = is_sprinting
 	if sprinting:
 		speed = base_speed * sprint_multiplier
-		var tween = get_parent().create_tween()
-		tween.tween_property(camera, "zoom", Vector2(0.95, 0.95), 0.2)
 	else:
 		speed = base_speed
 		var tween = get_parent().create_tween()
-		tween.tween_property(camera, "zoom", Vector2(1, 1), 0.2)
+		tween.tween_property(camera, "zoom", normal_zoom, zoom_duration)
+		zoomed_out = false
