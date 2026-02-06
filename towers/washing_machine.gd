@@ -97,13 +97,18 @@ func is_turret_aimed() -> bool:
 func _physics_process(delta):
 	super._physics_process(delta)
 	
-	# 1. Handle Visuals & Rotation (Existing Logic)
+	# Handle Visuals and Rotation 
 	if current_target != null:
-		var direction = global_position.direction_to(current_target.global_position)
-		turret_head.rotation = lerp_angle(turret_head.rotation, direction.angle(), 10 * delta)
-		if stream_visuals: stream_visuals.visible = true
+		# Instant rotate if we have no stream visuals
+		if not stream_visuals.visible:
+			var direction = global_position.direction_to(current_target.global_position)
+			turret_head.rotation = direction.angle()
+			stream_visuals.visible = true
+		else:
+			var direction = global_position.direction_to(current_target.global_position)
+			turret_head.rotation = lerp_angle(turret_head.rotation, direction.angle(), 10 * delta)
 	else:
-		if stream_visuals: stream_visuals.visible = false
+		stream_visuals.visible = false
 	
 	# We loop through every enemy currently in the water
 	for enemy in enemies_in_stream.keys():
@@ -128,7 +133,6 @@ func _on_stream_area_entered(area):
 	var enemy = area.get_parent()
 	
 	if enemy is Enemy:
-		# INSTANT HIT LOGIC
 		hit_enemy(enemy)
 		
 		# Start tracking them for DoT
