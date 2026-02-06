@@ -1,8 +1,8 @@
 [gd_scene format=4 uid="uid://yqm4l8rcqtm"]
 
-[ext_resource type="Script" uid="uid://cci1c45y162ii" path="res://build_process.gd" id="1_0wunw"]
+[ext_resource type="Script" uid="uid://cci1c45y162ii" path="res://maps/starting_house.gd" id="1_0wunw"]
 [ext_resource type="Texture2D" uid="uid://btw86cmxyxtik" path="res://assets/tiles/BrickTile.png" id="2_doidk"]
-[ext_resource type="PackedScene" uid="uid://btbocrgrmpbf1" path="res://WaveManager.tscn" id="2_lqldo"]
+[ext_resource type="Script" uid="uid://3op5xodtfdh0" path="res://maps/starting_house_wave_manager.gd" id="2_lqldo"]
 [ext_resource type="Texture2D" uid="uid://dapjy6t6hr0xr" path="res://assets/tiles/KitchenTile.png" id="3_lqldo"]
 [ext_resource type="Texture2D" uid="uid://dt4ksulho7had" path="res://assets/tiles/StoneTile.png" id="4_srmx2"]
 [ext_resource type="Texture2D" uid="uid://bah63n24vqr4f" path="res://assets/tiles/WoodFloor.png" id="5_nadlx"]
@@ -207,17 +207,26 @@ _data = {
 }
 point_count = 45
 
-[node name="LevelMap" type="Node2D" unique_id=640214367 node_paths=PackedStringArray("FloorLayer", "WaveManager", "BedroomPortal", "KitchenPortal")]
+[node name="LevelMap" type="Node2D" unique_id=640214367 node_paths=PackedStringArray("BedroomPortal", "KitchenPortal", "floor_layer", "map_wave_manager")]
 y_sort_enabled = true
 script = ExtResource("1_0wunw")
-FloorLayer = NodePath("FloorLayer")
-WaveManager = NodePath("WaveManager")
 BedroomPortal = NodePath("ObjectLayer/BedroomPath/Portal")
 KitchenPortal = NodePath("ObjectLayer/KitchenPath/Portal")
+floor_layer = NodePath("FloorLayer")
+map_wave_manager = NodePath("StartingHouseWaveManager")
 
-[node name="WaveManager" parent="." unique_id=825006016 node_paths=PackedStringArray("path_bedroom", "path_kitchen") groups=["wave_manager"] instance=ExtResource("2_lqldo")]
+[node name="StartingHouseWaveManager" type="Node" parent="." unique_id=2117322888 node_paths=PackedStringArray("path_bedroom", "path_kitchen", "bedroom_timer", "kitchen_timer") groups=["wave_manager"]]
+script = ExtResource("2_lqldo")
 path_bedroom = NodePath("../ObjectLayer/BedroomPath")
 path_kitchen = NodePath("../ObjectLayer/KitchenPath")
+bedroom_timer = NodePath("BedroomTimer")
+kitchen_timer = NodePath("KitchenTimer")
+
+[node name="BedroomTimer" type="Timer" parent="StartingHouseWaveManager" unique_id=1385940116]
+one_shot = true
+
+[node name="KitchenTimer" type="Timer" parent="StartingHouseWaveManager" unique_id=977914453]
+one_shot = true
 
 [node name="FloorLayer" type="TileMapLayer" parent="." unique_id=1030612816 groups=["floor_layer"]]
 z_index = -2
@@ -270,3 +279,6 @@ libraries/ = SubResource("AnimationLibrary_kjvhd")
 
 [node name="MadScientist" parent="ObjectLayer" unique_id=1353172780 instance=ExtResource("12_lqldo")]
 y_sort_enabled = true
+
+[connection signal="timeout" from="StartingHouseWaveManager/BedroomTimer" to="StartingHouseWaveManager" method="_on_bedroom_timer_timeout"]
+[connection signal="timeout" from="StartingHouseWaveManager/KitchenTimer" to="StartingHouseWaveManager" method="_on_kitchen_timer_timeout"]
