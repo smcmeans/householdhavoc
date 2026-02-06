@@ -1,7 +1,7 @@
 extends Button
 
 @onready var wave_manager: Node
-#get_tree().current_scene.get_node("WaveManager")
+#get_tree().current_scene.get_node("wave_manager")
 
 func _ready():
 
@@ -19,7 +19,7 @@ func _pressed():
 	
 	GameData.current_round += 1
 	$"../RoundLabel".update_round()
-	# Find the WaveManager and tell it to go
+	# Find the wave_manager and tell it to go
 	wave_manager.start_next_wave() 
 	# Disable button so we don't spam it
 	disabled = true
