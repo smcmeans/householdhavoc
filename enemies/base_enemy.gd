@@ -190,7 +190,6 @@ func apply_status(effect_name: String, duration: float):
 		if category == "utensil":
 			return
 		if has_status("burning"):
-			_apply_status_helper("dry", 5.0)
 			# TODO: Add steam blast
 			# take_damage(int(active_statuses["burning"]))
 			# This is too powerful, just remove burning for now
@@ -226,6 +225,8 @@ func remove_status(effect_name: String):
 		active_statuses.erase(effect_name)
 		update_status_visuals()
 		print(name + " removed status: " + effect_name)
+		if (effect_name == "burning"):
+			apply_status("dry", 5.0)
 	_update_speed_mult()
 
 # Helper for Towers to check
