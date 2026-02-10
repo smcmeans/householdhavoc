@@ -43,9 +43,8 @@ func _physics_process(delta):
 		elif result["collider"] is TileMap or result["collider"] is TileMapLayer or result["collider"] is StaticBody2D:
 			_on_wall_hit(result["collider"])
 			
-	else:
-		# Path is clear, move normally
-		position += direction * travel_distance
+	# Path is clear, move normally
+	position += direction * travel_distance
 
 # --- The Hit Logic ---
 func _on_hit(area):
@@ -53,10 +52,7 @@ func _on_hit(area):
 	var enemy = area.get_parent()
 	
 	# Verify it is an enemy
-	if enemy is Enemy and piercing > 0:
-		# Prevent hitting the same enemy multiple times
-		if enemy in enemies_hit:
-			return
+	if enemy is Enemy and piercing > 0 and not enemy in enemies_hit:
 		enemies_hit.append(enemy)
 
 		apply_effect(enemy)
