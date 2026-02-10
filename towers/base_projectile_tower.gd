@@ -9,14 +9,24 @@ class_name ProjectileTower
 @onready var spawn_point = $Pivot/SpawnPoint
 
 func _physics_process(delta):
+
+	super.update_target()
+
 	# Rotate towards target if we have one
 	if current_target != null:
 		var aim_point = get_predicted_target_position()
 		pivot.look_at(aim_point)
-		
-	super(delta)
+		if is_ready_to_fire:
+			fire()
+			start_reload()
 
+	# if current_target != null and is_ready_to_fire and is_turret_aimed():
+	# 	fire()
+	# 	start_reload()
+		
 func is_turret_aimed() -> bool:
+	# return true
+
 	if current_target == null:
 		return false
 
