@@ -1,5 +1,6 @@
 extends ProjectileTower
 
+# TODO Add a check to open the door when enemies are about to enter the tower's range
 
 @export var hanger_trapped_duration: float = 0.2
 
@@ -9,8 +10,16 @@ var is_door_open: bool = false
 
 @onready var anim_player = $AnimationPlayer
 
+@onready var animation_range = $AnimationRange/CollisionShape2D
+
 func _ready():
+	var circle = CircleShape2D.new()
+	circle.radius = attack_range + 50 # Add some padding so the animation doesn't get cut off
+	animation_range.shape = circle
+
+
 	super()
+	
 	path_1_upgrades = {
 		1: { "name": "More Hangers", "cost": 100, "icon": null, "description": "Increases hangers thrown by 1." },
 		2: { "name": "Even More Hangers",    "cost": 200, "icon": null, "description": "Increases hangers thrown by 2." },
@@ -25,17 +34,9 @@ func _ready():
 
 func _physics_process(delta):
 	super(delta)
-	
-	# Case A: We have a target, but the door is closed -> OPEN IT
-	if current_target != null and not is_door_open:
-		open_closet()
-		
-	# Case B: We lost the target, but the door is open -> CLOSE IT
-	elif current_target == null and is_door_open:
-		close_closet()
 
 func is_turret_aimed() -> bool:
-	return super.is_turret_aimed() and not (anim_player.current_animation == "open" or anim_player.is_playing())
+	return super.is_turret_aimed()
 		
 
 func fire():
@@ -84,3 +85,11 @@ func _update_stats(path_id, tier):
 			damage += 5
 			multiplicative_damage = true
 			add_attack_range(100)
+
+func _on_animation_range_area_entered(area: Area2D) -> void:
+	if not is_door_open:
+		open_closet()
+
+func _on_animation_range_area_exited(area: Area2D) -> void:
+	if is_door_open and potential_targets.size() == 0: # Only close if we don't have another target
+		close_closet()
