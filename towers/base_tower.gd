@@ -25,23 +25,19 @@ var sell_value: int = 0
 @onready var reload_timer = $ReloadTimer
 
 func _ready():
-	# 1. Apply range to the collision shape physically
+	# Apply range to the collision shape physically
 	var circle = CircleShape2D.new()
 	circle.radius = attack_range
 	detection_shape.shape = circle
 	
-	# 2. Setup Timer
+	# Setup Timer
 	reload_timer.wait_time = fire_rate
 	reload_timer.one_shot = true # We will restart it manually after firing
 	
-	# 3. Connect Signals
-	# Note: We connect these to the PARENT script functions defined below
 
 func _physics_process(_delta):
 	update_target()
-	
-	
-	# If we have a target and the gun is loaded... FIRE!
+
 	if current_target != null and is_ready_to_fire and is_turret_aimed():
 		fire()
 		start_reload()
@@ -113,7 +109,7 @@ func _on_detection_range_area_entered(area):
 	# The 'area' is the Hitbox. The Enemy script is on the Hitbox's parent.
 	var enemy = area.get_parent()
 	
-	# Check if the parent is actually an Enemy (using the class_name we set up)
+	# Check if the parent is actually an Enemy
 	if enemy is Enemy:
 		potential_targets.append(enemy)
 		print("Target Acquired: ", enemy.name)
@@ -192,7 +188,7 @@ func apply_upgrade(path_id: int):
 	else:
 		print("Not enough cash!")
 
-# Placeholder function that children scripts (Dryer/Washer) will overwrite
+# Placeholder function that children scripts will overwrite
 func _update_stats(_path_id, _tier):
 	pass
 
@@ -207,8 +203,8 @@ func _on_click_area_input_event(_viewport: Node, event: InputEvent, _shape_idx: 
 	# We must check 'event.pressed' to ensure we only fire on the CLICK, not the release.
 	if event is InputEventMouseButton and event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
 		select_tower()
-        
-        # Optional: Mark the input as handled so it doesn't click through to the floor
+		
+		# Optional: Mark the input as handled so it doesn't click through to the floor
 		get_viewport().set_input_as_handled()
 
 	elif event is InputEventMouseButton and event.pressed:
