@@ -1,20 +1,26 @@
 extends Node2D
 
-var other_portal_position: Vector2
+var other_portal: Vector2
 
 
-func set_other_portal_position(portal_position: Vector2):
-	other_portal_position = portal_position
+func set_other_portal_position(other_portal_position: Vector2):
+	other_portal = other_portal_position
 
-func _on_area_2d_area_entered(area: Area2D) -> void:
-	print("Area entered: " + str(area))
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	#print("Area exited: " + str(body))
+	if body is Character:
+		# Check if teleporting
+		if body.teleporting:
+			body.teleporting = false # Reset teleporting state
+			return
 
-	var player = area.get_parent()
-	if player is Character and player.can_teleport:
-		player.can_teleport = false # Prevent immediate re-teleporting
-		player.global_position = other_portal_position # Teleport to the other portal
-		
-func _on_area_2d_area_exited(area: Area2D) -> void:
-	var player = area.get_parent()
-	if player is Character:
-		player.can_teleport = true # Allow teleporting again once they leave the portal area
+		body.can_teleport = true # Allow teleporting again once they leave the portal area
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	#print("Area entered: " + str(body))
+
+
+	if body is Character and body.can_teleport and other_portal:
+		body.can_teleport = false # Prevent immediate re-teleporting
+		body.teleporting = true # Set teleporting state to prevent re-entry issues
+		body.global_position = other_portal # Teleport to the other portal
