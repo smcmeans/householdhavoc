@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://cchgf8nvbj6co"]
+[gd_scene format=3 uid="uid://cchgf8nvbj6co"]
 
 [ext_resource type="Script" uid="uid://bufrg3spept2p" path="res://characters/base_character.gd" id="1_se0s1"]
 [ext_resource type="PackedScene" uid="uid://b5j2tgyq8ybe3" path="res://DropShadow.tscn" id="2_dh2ef"]
@@ -44,24 +44,22 @@ _data = {
 &"walk": SubResource("Animation_v4dvb")
 }
 
-[node name="BaseCharacter" type="CharacterBody2D"]
-collision_layer = 0
+[node name="BaseCharacter" type="CharacterBody2D" unique_id=2013913230]
+collision_layer = 2
 script = ExtResource("1_se0s1")
 
-[node name="DropShadow" parent="." instance=ExtResource("2_dh2ef")]
+[node name="DropShadow" parent="." unique_id=879136169 instance=ExtResource("2_dh2ef")]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1997282606]
 offset = Vector2(0, -14)
 hframes = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=952769615]
 shape = SubResource("RectangleShape2D_se0s1")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1781271423]
 position_smoothing_enabled = true
 rotation_smoothing_speed = 0.2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_l3a0c")
-}
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1424774062]
+libraries/ = SubResource("AnimationLibrary_l3a0c")
