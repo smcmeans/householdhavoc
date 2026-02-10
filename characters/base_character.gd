@@ -7,6 +7,7 @@ class_name Character
 @onready var sprite = $Sprite2D
 
 var animation_playing: bool = false
+var can_teleport: bool = true
 
 func _physics_process(_delta):
 
