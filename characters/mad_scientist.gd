@@ -101,10 +101,14 @@ func open_portal(target_position: Vector2):
 
 	portal.get_child(0).play("default")
 
-	portal_timeout()
+	# Set the portal's teleport location
+	if portal_positions.size() == 2:
+		portal.other_portal_position = portal_positions[int(not current_portal_index)]
+		portals_in_scene[int(not current_portal_index)].other_portal_position = target_position
+
 	get_parent().add_child(portal)
 
-# TODO Need to find a way to make this better for multiplayer
+# TODO Need to find a way to make this better for multiplayer, maybe use Area2D like a normal person 
 func use_portal():
 	if portal_positions.size() < 2 || not can_use_portal:
 		return # Not enough portals placed
