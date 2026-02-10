@@ -58,7 +58,7 @@ func _physics_process(delta):
 		set_range_visible(true)
 		throwing = true
 
-	use_portal()
+	#use_portal()
 	super._physics_process(delta)
 
 func set_range_visible(visibility: bool):
@@ -71,7 +71,7 @@ func set_range_indicators_valid(validity: bool):
 	$RangeIndicator.modulate = color
 
 func create_potion(target_position: Vector2) -> Node2D:
-	var potion = potion_scene.instantiate()
+	var potion = potion_scene.instantiate() as Node2D
 	potion.global_position = global_position
 	potion.target_position = target_position
 	potion.splash_radius = potion_splash_radius
@@ -103,8 +103,10 @@ func open_portal(target_position: Vector2):
 
 	# Set the portal's teleport location
 	if portal_positions.size() == 2:
-		portal.other_portal_position = portal_positions[int(not current_portal_index)]
-		portals_in_scene[int(not current_portal_index)].other_portal_position = target_position
+		var portal_a = portals_in_scene[0] as Node2D
+		var portal_b = portals_in_scene[1] as Node2D
+		(portal_a as Node2D).set_other_portal_position(portal_b.global_position)
+		(portal_b as Node2D).set_other_portal_position(portal_a.global_position)
 
 	get_parent().add_child(portal)
 
