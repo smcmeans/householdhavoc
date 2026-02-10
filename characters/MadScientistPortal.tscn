@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dwg3wqwyrdsth"]
 
 [ext_resource type="Texture2D" uid="uid://d3tybmqmrgvh" path="res://assets/sprites/portal.png" id="1_0dvjx"]
+[ext_resource type="Script" uid="uid://dbjlfkb0j23ii" path="res://characters/mad_scientist_portal.gd" id="1_voitx"]
 [ext_resource type="PackedScene" uid="uid://b5j2tgyq8ybe3" path="res://DropShadow.tscn" id="2_u6lse"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_voitx"]
@@ -67,8 +68,12 @@ animations = [{
 "speed": 20.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u2hlt"]
+size = Vector2(20, 13)
+
 [node name="MadScientistPortal" type="Node2D" unique_id=1209500351]
 y_sort_enabled = true
+script = ExtResource("1_voitx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1701408480]
 y_sort_enabled = true
@@ -78,3 +83,14 @@ frame = 4
 frame_progress = 0.13819829
 
 [node name="DropShadow" parent="." unique_id=514375935 instance=ExtResource("2_u6lse")]
+
+[node name="Area2D" type="Area2D" parent="." unique_id=356829512]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1258550846]
+position = Vector2(0, -3.5)
+shape = SubResource("RectangleShape2D_u2hlt")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
