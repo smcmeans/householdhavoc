@@ -8,6 +8,7 @@ class_name Character
 
 var animation_playing: bool = false
 var can_teleport: bool = true
+var teleporting: bool = false
 
 func _physics_process(_delta):
 
