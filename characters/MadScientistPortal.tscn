@@ -76,7 +76,6 @@ y_sort_enabled = true
 script = ExtResource("1_voitx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1701408480]
-y_sort_enabled = true
 position = Vector2(0, -16)
 sprite_frames = SubResource("SpriteFrames_eub7v")
 frame = 4

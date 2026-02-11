@@ -45,6 +45,7 @@ _data = {
 }
 
 [node name="BaseCharacter" type="CharacterBody2D" unique_id=2013913230]
+y_sort_enabled = true
 collision_layer = 2
 script = ExtResource("1_se0s1")
 

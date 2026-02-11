@@ -14,7 +14,7 @@ potion_scene = ExtResource("4_032md")
 throw_range = 150.0
 potion_splash_radius = 10.0
 
-[node name="Sprite2D" parent="." index="1"]
+[node name="Sprite2D" parent="." index="1" unique_id=1997282606]
 texture = ExtResource("2_yv1ku")
 
 [node name="PotionSplashIndicator" type="Node2D" parent="." index="5" unique_id=658064910]

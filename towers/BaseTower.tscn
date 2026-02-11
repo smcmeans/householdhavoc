@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dyv051ckna75w"]
+[gd_scene format=3 uid="uid://dyv051ckna75w"]
 
 [ext_resource type="Script" uid="uid://tybpopfndxoc" path="res://towers/base_tower.gd" id="1_gt2hj"]
 [ext_resource type="Script" uid="uid://xgxpy0tct50v" path="res://towers/range_indicator.gd" id="2_iqhfc"]
@@ -9,33 +9,33 @@ radius = 34.234486
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gt2hj"]
 size = Vector2(32, 30)
 
-[node name="BaseTower" type="Node2D"]
+[node name="BaseTower" type="Node2D" unique_id=313466432]
 y_sort_enabled = true
 script = ExtResource("1_gt2hj")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1714065750]
 offset = Vector2(0, -16)
 
-[node name="RangeIndicator" type="Node2D" parent="."]
+[node name="RangeIndicator" type="Node2D" parent="." unique_id=1617875753]
 z_index = -1
 script = ExtResource("2_iqhfc")
 
-[node name="DetectionRange" type="Area2D" parent="."]
+[node name="DetectionRange" type="Area2D" parent="." unique_id=2062792625]
 position = Vector2(0, -10)
 collision_layer = 0
 collision_mask = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionRange"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionRange" unique_id=901439783]
 shape = SubResource("CircleShape2D_iqhfc")
 
-[node name="ReloadTimer" type="Timer" parent="."]
+[node name="ReloadTimer" type="Timer" parent="." unique_id=982784158]
 
-[node name="ClickArea" type="Area2D" parent="."]
+[node name="ClickArea" type="Area2D" parent="." unique_id=566202174]
 position = Vector2(0, -16)
 collision_layer = 8
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ClickArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ClickArea" unique_id=1940366398]
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_gt2hj")
 
