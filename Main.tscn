@@ -36,7 +36,8 @@ physics_object_picking = true
 size = Vector2i(640, 360)
 render_target_update_mode = 4
 
-[node name="LevelMap" parent="GameCanvas/GameContainer/GameViewport" unique_id=640214367 groups=["map"] instance=ExtResource("4_20pc6")]
+[node name="LevelMap" parent="GameCanvas/GameContainer/GameViewport" unique_id=640214367 node_paths=PackedStringArray("upgrade_menu") groups=["map"] instance=ExtResource("4_20pc6")]
+upgrade_menu = NodePath("../../../../BuildMenu")
 
 [node name="UI" type="CanvasLayer" parent="." unique_id=57730077]
 
