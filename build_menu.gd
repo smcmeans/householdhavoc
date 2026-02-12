@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+# TODO: Find a way to get the price from the base_tower
+
 # Define a "Signal" that we shout out when a player picks something
 signal request_tower_placement(tower_scene, cost)
 
