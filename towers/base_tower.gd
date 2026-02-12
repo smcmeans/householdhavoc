@@ -21,6 +21,7 @@ var is_selected: bool = false
 var sell_value: int = 0
 var tile_size: Array = [Vector2i(0,0), Vector2i(1,0), Vector2i(0,1), Vector2i(1, 1)]
 var tile_position: Vector2
+var price: int = 100
 
 # --- Nodes ---
 @onready var detection_shape = $DetectionRange/CollisionShape2D
@@ -36,6 +37,7 @@ func _ready():
 	reload_timer.wait_time = fire_rate
 	reload_timer.one_shot = true # We will restart it manually after firing
 	
+	sell_value += int(price / 2)
 
 func _physics_process(_delta):
 	update_target()
