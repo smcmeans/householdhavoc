@@ -16,6 +16,8 @@ var build_menu: CanvasLayer
 
 @export var map_wave_manager: Node
 
+@export var upgrade_menu: CanvasLayer
+
 func check_for_undefined() -> bool:
 	var returned_value = true
 	print("Checking for undefined variables in map")
@@ -41,6 +43,7 @@ func _ready():
 		print("All variables defined. Map ready.")
 
 	build_menu.request_tower_placement.connect(_on_build_requested)
+	upgrade_menu.request_tower_removal.connect(_on_tower_removal_requested)
 
 func _on_build_requested(tower_scene, cost):
 	
@@ -145,3 +148,6 @@ func remove_tower_at(anchor_grid_pos: Vector2i, tower_footprint: Array):
 	for offset in tower_footprint:
 		var mark_pos = anchor_grid_pos + offset
 		occupied_tiles.erase(mark_pos)
+
+func _on_tower_removal_requested(tile_position, tile_size):
+	remove_tower_at(tile_position, tile_size)

@@ -2,6 +2,8 @@ extends Control
 
 var current_tower = null
 
+signal request_tower_removal(tile_position, tile_size)
+
 func _ready():
 	visible = false
 
@@ -39,6 +41,9 @@ func _on_sell_btn_pressed():
 
 	# Add money to player
 	GameData.add_money(current_tower.sell_value)
+
+	# Send signal to map to remove tower from occupied tiles
+	emit_signal("request_tower_removal", current_tower.tile_position, current_tower.tile_size)
 
 	# Remove tower from scene
 	current_tower.queue_free()
