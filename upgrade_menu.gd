@@ -2,7 +2,7 @@ extends Control
 
 var current_tower = null
 
-signal request_tower_removal(tile_position, tile_size)
+#signal request_tower_removal(tile_position, tile_size)
 
 func _ready():
 	visible = false
@@ -43,10 +43,14 @@ func _on_sell_btn_pressed():
 	GameData.add_money(current_tower.sell_value)
 
 	# Send signal to map to remove tower from occupied tiles
-	emit_signal("request_tower_removal", current_tower.tile_position, current_tower.tile_size)
+	#emit_signal("request_tower_removal", current_tower.tile_position, current_tower.tile_size)
+	get_tree().get_first_node_in_group("map").remove_tower_at(current_tower.tile_position, current_tower.tile_size)
 
 	# Remove tower from scene
 	current_tower.queue_free()
+
+	# Close the menu
+	close_menu()
 
 func refresh_ui():
 	if current_tower == null: return
