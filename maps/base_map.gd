@@ -8,7 +8,7 @@ var current_tower_cost: int = 0
 
 var occupied_tiles = {}
 # [0, 0] is top left
-var tower_footprint = [Vector2i(0,0), Vector2i(1,0), Vector2i(0,1), Vector2i(1, 1)]
+# var tower_footprint = [Vector2i(0,0), Vector2i(1,0), Vector2i(0,1), Vector2i(1, 1)]
 
 @export var floor_layer: TileMapLayer
 
@@ -79,7 +79,8 @@ func _process(_delta):
 		#print("Tile Pos: ", tile_pos)
 		
 		# Check Validity
-		var is_valid = can_place_tower_at(tile_pos)
+		var tower_footprint = current_ghost_tower.tile_size
+		var is_valid = can_place_tower_at(tile_pos, tower_footprint)
 		
 		# Visual Snap
 		# This calculated the center of the tile, we want top-left
@@ -107,7 +108,8 @@ func place_tower(grid_pos: Vector2i, pixel_pos: Vector2):
 	current_ghost_tower.modulate = Color(1, 1, 1, 1)
 	current_ghost_tower.process_mode = Node.PROCESS_MODE_INHERIT
 	current_ghost_tower.global_position = pixel_pos # Ensure it stays exactly where the ghost was
-	
+	current_ghost_tower.tile_position = grid_pos # Set the position for future reference
+	var tower_footprint = current_ghost_tower.tile_size
 	# Select the tower
 	current_ghost_tower.select_tower()
 
@@ -122,7 +124,7 @@ func place_tower(grid_pos: Vector2i, pixel_pos: Vector2):
 	GameData.remove_money(current_tower_cost)
 	# print(str(occupied_tiles))
 
-func can_place_tower_at(anchor_grid_pos: Vector2i) -> bool:
+func can_place_tower_at(anchor_grid_pos: Vector2i, tower_footprint: Array) -> bool:
 	# USE THE SAME FOOTPRINT VARIABLE
 	for offset in tower_footprint:
 		var check_pos = anchor_grid_pos + offset
@@ -138,3 +140,8 @@ func can_place_tower_at(anchor_grid_pos: Vector2i) -> bool:
 			return false
 				
 	return true
+
+func remove_tower_at(anchor_grid_pos: Vector2i, tower_footprint: Array):
+	for offset in tower_footprint:
+		var mark_pos = anchor_grid_pos + offset
+		occupied_tiles.erase(mark_pos)
