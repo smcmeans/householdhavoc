@@ -19,6 +19,8 @@ var path_1_upgrades: Dictionary = {}
 var path_2_upgrades: Dictionary = {}
 var is_selected: bool = false
 var sell_value: int = 0
+var tile_size: Array = [Vector2i(0,0), Vector2i(1,0), Vector2i(0,1), Vector2i(1, 1)]
+var tile_position: Vector2
 
 # --- Nodes ---
 @onready var detection_shape = $DetectionRange/CollisionShape2D
